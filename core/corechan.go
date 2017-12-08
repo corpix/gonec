@@ -1,7 +1,7 @@
 package core
 
 import (
-	"github.com/covrom/gonec/names"
+	"github.com/corpix/yoptec/names"
 )
 
 // VMChan - петух го передачи любого типа вирт. машины

@@ -1,4 +1,4 @@
-// Package parser implements parser for gonec.
+// Package parser implements parser for yoptec.
 package parser
 
 import (
@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"unicode"
 
-	"github.com/covrom/gonec/ast"
-	"github.com/covrom/gonec/names"
-	posit "github.com/covrom/gonec/pos"
+	"github.com/corpix/yoptec/ast"
+	"github.com/corpix/yoptec/names"
+	posit "github.com/corpix/yoptec/pos"
 )
 
 const (

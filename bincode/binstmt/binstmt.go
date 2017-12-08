@@ -8,9 +8,9 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/covrom/gonec/core"
-	"github.com/covrom/gonec/names"
-	"github.com/covrom/gonec/pos"
+	"github.com/corpix/yoptec/core"
+	"github.com/corpix/yoptec/names"
+	"github.com/corpix/yoptec/pos"
 )
 
 type BinStmt interface {
@@ -59,8 +59,8 @@ func (v *BinCode) MapLabels(lastlabel int) {
 
 func WriteBinCode(w io.Writer, v BinCode) error {
 	zw := gzip.NewWriter(w)
-	zw.Name = "Gonec binary code"
-	zw.Comment = "Created with https://covrom.github.io/gonec/ by Roman TSovanyan rs@tsov.pro"
+	zw.Name = "yoptec binary code"
+	zw.Comment = "Created with https://covrom.github.io/yoptec/ by Roman TSovanyan rs@tsov.pro"
 	zw.ModTime = time.Now()
 
 	enc := gob.NewEncoder(zw)
@@ -88,9 +88,9 @@ func ReadBinCode(r io.Reader) (res BinCode, err error) {
 
 	dec := gob.NewDecoder(zr)
 
-	var gnxNames = names.NewEnvNames()
+	var ypxNames = names.NewEnvNames()
 
-	if err := dec.Decode(gnxNames); err != nil {
+	if err := dec.Decode(ypxNames); err != nil {
 		return res, err
 	}
 	if err := dec.Decode(&res); err != nil {
@@ -104,9 +104,9 @@ func ReadBinCode(r io.Reader) (res BinCode, err error) {
 	// и заменяем идентификаторы в загружаемом коде в случае конфликта
 	swapIdents := make(map[int]int)
 
-	// log.Println(gnxNames)
+	// log.Println(ypxNames)
 
-	for i, v := range gnxNames.Handlow {
+	for i, v := range ypxNames.Handlow {
 
 		// log.Printf("Проверяем %d, %q", i, v)
 
@@ -114,7 +114,7 @@ func ReadBinCode(r io.Reader) (res BinCode, err error) {
 			// под тем же идентификатором находится другая строка, без учета регистра
 			if v != vv {
 				// захуярить id
-				ii := names.UniqueNames.Set(gnxNames.Handles[i])
+				ii := names.UniqueNames.Set(ypxNames.Handles[i])
 				swapIdents[i] = ii
 
 				// log.Printf("Заменяем %d на %d го загружаемого %q, уже есть %q\n", i, ii, v, vv)
@@ -124,9 +124,9 @@ func ReadBinCode(r io.Reader) (res BinCode, err error) {
 			// такого идентификатора еще нет - устанавливаем значение на него
 			// последующие идентификаторы names.UniqueNames будут идти после него
 
-			// log.Printf("Устанавливаем %d го загружаемого %q\n", i, gnxNames.Handles[i])
+			// log.Printf("Устанавливаем %d го загружаемого %q\n", i, ypxNames.Handles[i])
 
-			names.UniqueNames.SetToId(gnxNames.Handles[i], i)
+			names.UniqueNames.SetToId(ypxNames.Handles[i], i)
 		}
 	}
 

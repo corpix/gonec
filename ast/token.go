@@ -1,6 +1,6 @@
 package ast
 
-import "github.com/covrom/gonec/pos"
+import "github.com/corpix/yoptec/pos"
 
 type Token struct {
 	pos.PosImpl // StmtImpl provide Pos() function.

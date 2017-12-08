@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"sync"
 
-	"github.com/covrom/gonec/names"
+	"github.com/corpix/yoptec/names"
 )
 
 // VMWaitGroup - группа ожидания исполнения горутин

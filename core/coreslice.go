@@ -9,7 +9,7 @@ import (
 	"sort"
 	"sync"
 
-	"github.com/covrom/gonec/names"
+	"github.com/corpix/yoptec/names"
 )
 
 const ChunkVMSlicePool = 64

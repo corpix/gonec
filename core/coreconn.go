@@ -14,7 +14,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/covrom/gonec/names"
+	"github.com/corpix/yoptec/names"
 	uuid "github.com/satori/go.uuid"
 )
 
@@ -179,7 +179,7 @@ func (x *VMConn) Dial(proto, addr string, handler VMFunc, closeOnExitHandler boo
 
 	if proto == "tcptls" {
 		// certPool := x509.NewCertPool()
-		// certPool.AppendCertsFromPEM(TLSCertGonec)
+		// certPool.AppendCertsFromPEM(TLSCertyoptec)
 		config := &tls.Config{
 			// RootCAs: certPool,
 			InsecureSkipVerify: true,

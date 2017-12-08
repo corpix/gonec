@@ -11,7 +11,7 @@ import (
 	"sync"
 )
 
-var TLSKeyGonec = []byte(`-----BEGIN EC PARAMETERS-----
+var TLSKeyyoptec = []byte(`-----BEGIN EC PARAMETERS-----
 BgUrgQQAIg==
 -----END EC PARAMETERS-----
 -----BEGIN EC PRIVATE KEY-----
@@ -22,7 +22,7 @@ d2AI06NcTbToyEMa4ookqgIVV3c29/M=
 -----END EC PRIVATE KEY-----
 `)
 
-var TLSCertGonec = []byte(`-----BEGIN CERTIFICATE-----
+var TLSCertyoptec = []byte(`-----BEGIN CERTIFICATE-----
 MIICDTCCAZSgAwIBAgIJAI9YNQ6VRzGRMAoGCCqGSM49BAMCMEUxCzAJBgNVBAYT
 AlJVMRMwEQYDVQQIDApTb21lLVN0YXRlMREwDwYDVQQKDAh0c292LnBybzEOMAwG
 A1UEAwwFZ29uZWMwHhcNMTcxMDE3MDYxMjQ2WhcNNDUwMzA0MDYxMjQ2WjBFMQsw
@@ -38,7 +38,7 @@ qw==
 -----END CERTIFICATE-----
 `)
 
-var TLSKeyPair, _ = tls.X509KeyPair(TLSCertGonec, TLSKeyGonec)
+var TLSKeyPair, _ = tls.X509KeyPair(TLSCertyoptec, TLSKeyyoptec)
 
 var aesKey = []byte("oUwhsPdfj439pfoi")
 

@@ -1,1 +1,1 @@
-web: gonec -t
+web: yoptec -t

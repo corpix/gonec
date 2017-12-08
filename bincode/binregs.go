@@ -1,7 +1,7 @@
 package bincode
 
 import (
-	"github.com/covrom/gonec/core"
+	"github.com/corpix/yoptec/core"
 )
 
 // Регистры виртуальной машины

@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 
-	posit "github.com/covrom/gonec/pos"
+	posit "github.com/corpix/yoptec/pos"
 )
 
 // Error provides a convenient interface for handling runtime error.

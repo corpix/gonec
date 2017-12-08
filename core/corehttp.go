@@ -5,7 +5,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/covrom/gonec/names"
+	"github.com/corpix/yoptec/names"
 )
 
 // VMHttpRequest запрос к http серверу

@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/boltdb/bolt"
-	"github.com/covrom/gonec/names"
+	"github.com/corpix/yoptec/names"
 )
 
 // VMBoltDB - группа ожидания исполнения горутин

@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/covrom/gonec/consulapi"
+	"github.com/corpix/yoptec/consulapi"
 )
 
 // VMMainServiceBus главный менеджер сервисов

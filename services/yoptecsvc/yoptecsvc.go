@@ -1,4 +1,4 @@
-package gonecsvc
+package yoptecsvc
 
 import (
 	"bytes"
@@ -10,14 +10,14 @@ import (
 	"sync"
 	"time"
 
-	"github.com/covrom/gonec/bincode"
-	"github.com/covrom/gonec/bincode/binstmt"
-	"github.com/covrom/gonec/core"
-	"github.com/covrom/gonec/parser"
+	"github.com/corpix/yoptec/bincode"
+	"github.com/corpix/yoptec/bincode/binstmt"
+	"github.com/corpix/yoptec/core"
+	"github.com/corpix/yoptec/parser"
 )
 
-func NewGonecInterpreter(header core.VMServiceHeader, args []string, tmode bool) *VMGonecInterpreterService {
-	v := &VMGonecInterpreterService{
+func NewyoptecInterpreter(header core.VMServiceHeader, args []string, tmode bool) *VMyoptecInterpreterService {
+	v := &VMyoptecInterpreterService{
 		hdr:          header,
 		fsArgs:       args,
 		testingMode:  tmode,
@@ -30,7 +30,7 @@ func NewGonecInterpreter(header core.VMServiceHeader, args []string, tmode bool)
 	return v
 }
 
-type VMGonecInterpreterService struct {
+type VMyoptecInterpreterService struct {
 	core.VMValueStruct
 	hdr          core.VMServiceHeader
 	fsArgs       []string
@@ -42,13 +42,13 @@ type VMGonecInterpreterService struct {
 	lasterr      error
 }
 
-func (x *VMGonecInterpreterService) vmval() {}
+func (x *VMyoptecInterpreterService) vmval() {}
 
-func (x *VMGonecInterpreterService) Header() core.VMServiceHeader {
+func (x *VMyoptecInterpreterService) Header() core.VMServiceHeader {
 	return x.hdr
 }
 
-func (x *VMGonecInterpreterService) Start() error {
+func (x *VMyoptecInterpreterService) Start() error {
 
 	if x.srv != nil {
 		return core.VMErrorServerAlreadyStarted
@@ -83,7 +83,7 @@ func (x *VMGonecInterpreterService) Start() error {
 	x.lasterr = nil
 
 	// горутина сервера
-	go func(c *VMGonecInterpreterService) {
+	go func(c *VMyoptecInterpreterService) {
 		lasterr := c.srv.ListenAndServe()
 		c.lockSessions.Lock()
 		c.lasterr = lasterr
@@ -98,14 +98,14 @@ func (x *VMGonecInterpreterService) Start() error {
 	return nil
 }
 
-func (x *VMGonecInterpreterService) HealthCheck() error {
+func (x *VMyoptecInterpreterService) HealthCheck() error {
 	x.lockSessions.RLock()
 	defer x.lockSessions.RUnlock()
 
 	return x.lasterr
 }
 
-func (x *VMGonecInterpreterService) Stop() error {
+func (x *VMyoptecInterpreterService) Stop() error {
 	x.lockSessions.Lock()
 	defer x.lockSessions.Unlock()
 
@@ -119,7 +119,7 @@ func (x *VMGonecInterpreterService) Stop() error {
 	return nil
 }
 
-func (x *VMGonecInterpreterService) handlerSource(w http.ResponseWriter, r *http.Request) {
+func (x *VMyoptecInterpreterService) handlerSource(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodGet:
 		defer r.Body.Close()
@@ -177,7 +177,7 @@ func (x *VMGonecInterpreterService) handlerSource(w http.ResponseWriter, r *http
 	}
 }
 
-func (x *VMGonecInterpreterService) handlerAPI(w http.ResponseWriter, r *http.Request) {
+func (x *VMyoptecInterpreterService) handlerAPI(w http.ResponseWriter, r *http.Request) {
 
 	if r.ContentLength > 1<<26 {
 		time.Sleep(time.Second) //анти-ddos
@@ -239,11 +239,11 @@ func (x *VMGonecInterpreterService) handlerAPI(w http.ResponseWriter, r *http.Re
 	}
 }
 
-func (x *VMGonecInterpreterService) handlerIndex(w http.ResponseWriter, r *http.Request) {
+func (x *VMyoptecInterpreterService) handlerIndex(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, indexPage)
 }
 
-func (x *VMGonecInterpreterService) parseAndRun(r io.Reader, w io.Writer, env *core.Env) (err error) {
+func (x *VMyoptecInterpreterService) parseAndRun(r io.Reader, w io.Writer, env *core.Env) (err error) {
 	b, err := ioutil.ReadAll(r)
 	if err != nil {
 		return err
@@ -305,7 +305,7 @@ func (x *VMGonecInterpreterService) parseAndRun(r io.Reader, w io.Writer, env *c
 	return nil
 }
 
-func (x *VMGonecInterpreterService) handlerHealth(w http.ResponseWriter, r *http.Request) {
+func (x *VMyoptecInterpreterService) handlerHealth(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	// log.Println("Healthcheck")
 }

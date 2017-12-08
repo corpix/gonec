@@ -1,2 +1,2 @@
-// Package ast implements abstruct-syntax-tree for gonec.
+// Package ast implements abstruct-syntax-tree for yoptec.
 package ast

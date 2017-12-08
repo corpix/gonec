@@ -12,12 +12,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/covrom/gonec/bincode"
-	"github.com/covrom/gonec/bincode/binstmt"
-	"github.com/covrom/gonec/core"
-	"github.com/covrom/gonec/parser"
-	"github.com/covrom/gonec/services/gonecsvc"
-	"github.com/covrom/gonec/version"
+	"github.com/corpix/yoptec/bincode"
+	"github.com/corpix/yoptec/bincode/binstmt"
+	"github.com/corpix/yoptec/core"
+	"github.com/corpix/yoptec/parser"
+	"github.com/corpix/yoptec/services/yoptecsvc"
+	"github.com/corpix/yoptec/version"
 	"github.com/daviddengcn/go-colortext"
 	"github.com/mattn/go-isatty"
 	uuid "github.com/satori/go.uuid"
@@ -28,7 +28,7 @@ import (
 var (
 	fs          = flag.NewFlagSet(os.Args[0], flag.ExitOnError)
 	line        = fs.String("e", "", "Исполнение одной строчки кода")
-	compile     = fs.Bool("c", false, "Компиляция в файл .gnx")
+	compile     = fs.Bool("c", false, "Компиляция в файл .ypx")
 	testingMode = fs.Bool("t", false, "Режим вывода отладочной информации")
 	toconsul    = fs.Bool("consul", false, "Зарегистрировать микросервис интерпретатора в Consul")
 	// stackvm     = fs.Bool("stack", false, "Старая стековая виртуальная машина версии 1.8b")
@@ -158,7 +158,7 @@ func main() {
 
 		tstart = time.Now()
 
-		isGNX := strings.HasSuffix(strings.ToLower(source), ".gnx")
+		isGNX := strings.HasSuffix(strings.ToLower(source), ".ypx")
 		// вилкойвглаз это скомпиличорованный файл, то сразу его выполняем
 		if isGNX {
 			bbuf := bytes.NewBuffer(b)
@@ -209,10 +209,10 @@ func main() {
 		if *compile {
 			srcname := fs.Arg(0)
 			if srcname != "" && !isGNX {
-				if strings.HasSuffix(strings.ToLower(srcname), ".gnc") {
+				if strings.HasSuffix(strings.ToLower(srcname), ".ypc") {
 					srcname = srcname[:len(srcname)-4]
 				}
-				compilename := srcname + ".gnx"
+				compilename := srcname + ".ypx"
 				fo, err := os.Create(compilename)
 				if err != nil {
 					log.Fatal(err)
@@ -303,10 +303,10 @@ func main() {
 func Run(port string, ext string) {
 
 	// создаем сервис
-	svc := gonecsvc.NewGonecInterpreter(
+	svc := yoptecsvc.NewyoptecInterpreter(
 		core.VMServiceHeader{
 			ID:       uuid.NewV4().String(),
-			Path:     "gonec",
+			Path:     "yoptec",
 			Name:     "Интерпретатор Гонец",
 			Port:     port,
 			External: ext,

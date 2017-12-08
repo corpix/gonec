@@ -5,8 +5,8 @@ import __yyfmt__ "fmt"
 
 //line ./parser/parser.y:3
 import (
-	"github.com/covrom/gonec/ast"
-	"github.com/covrom/gonec/names"
+	"github.com/corpix/yoptec/ast"
+	"github.com/corpix/yoptec/names"
 )
 
 //line ./parser/parser.y:30

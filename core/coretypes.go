@@ -10,7 +10,7 @@ import (
 	"time"
 
 	"github.com/covrom/decnum"
-	"github.com/covrom/gonec/names"
+	"github.com/corpix/yoptec/names"
 	"github.com/dchest/siphash"
 )
 

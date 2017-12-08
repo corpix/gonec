@@ -1,4 +1,4 @@
-package gonecsvc
+package yoptecsvc
 
 const jsAce=`/* ***** BEGIN LICENSE BLOCK *****
 * Distributed under the BSD license:

@@ -1,12 +1,12 @@
-package gonecsvc
+package yoptecsvc
 
-const jsAceLang=`ace.define("ace/mode/gonec_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
+const jsAceLang=`ace.define("ace/mode/yoptec_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
 	"use strict";
 	
 	var oop = require("../lib/oop");
 	var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 	
-	var GonecHighlightRules = function() {
+	var yoptecHighlightRules = function() {
 	
 		var keywords = (
 			"харэ|жы|захуярить|иличовжопураз|иличовжопуразвилкойвглаз|го|йопта|вилкойвглаз|чоунастут|по|естьчо|аеслинайду|апохуй|ассо|пацансделал|"+
@@ -93,22 +93,22 @@ const jsAceLang=`ace.define("ace/mode/gonec_highlight_rules",["require","exports
 		this.normalizeRules();
 	}
 	
-	oop.inherits(GonecHighlightRules, TextHighlightRules);
+	oop.inherits(yoptecHighlightRules, TextHighlightRules);
 	
-	exports.GonecHighlightRules = GonecHighlightRules;
+	exports.yoptecHighlightRules = yoptecHighlightRules;
 	});
 		
-	ace.define("ace/mode/gonec",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/gonec_highlight_rules","ace/mode/folding/gonec","ace/range","ace/worker/worker_client"], function(require, exports, module) {
+	ace.define("ace/mode/yoptec",["require","exports","module","ace/lib/oop","ace/mode/text","ace/mode/yoptec_highlight_rules","ace/mode/folding/yoptec","ace/range","ace/worker/worker_client"], function(require, exports, module) {
 	"use strict";
 	
 	var oop = require("../lib/oop");
 	var TextMode = require("./text").Mode;
-	var GonecHighlightRules = require("./gonec_highlight_rules").GonecHighlightRules;
+	var yoptecHighlightRules = require("./yoptec_highlight_rules").yoptecHighlightRules;
 	var Range = require("../range").Range;
 	var WorkerClient = require("../worker/worker_client").WorkerClient;
 	
 	var Mode = function() {
-		this.HighlightRules = GonecHighlightRules;
+		this.HighlightRules = yoptecHighlightRules;
 		
 		this.$behaviour = this.$defaultBehaviour;
 	};
@@ -217,7 +217,7 @@ const jsAceLang=`ace.define("ace/mode/gonec_highlight_rules",["require","exports
 		};
 	
 		this.createWorker = function(session) {
-			var worker = new WorkerClient(["ace"], "ace/mode/gonec_worker", "Worker");
+			var worker = new WorkerClient(["ace"], "ace/mode/yoptec_worker", "Worker");
 			worker.attachToDocument(session.getDocument());
 			
 			worker.on("annotate", function(e) {
@@ -231,7 +231,7 @@ const jsAceLang=`ace.define("ace/mode/gonec_highlight_rules",["require","exports
 			return worker;
 		};
 	
-		this.$id = "ace/mode/gonec";
+		this.$id = "ace/mode/yoptec";
 	}).call(Mode.prototype);
 	
 	exports.Mode = Mode;

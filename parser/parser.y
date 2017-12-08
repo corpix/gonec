@@ -2,8 +2,8 @@
 package parser
 
 import (
-	"github.com/covrom/gonec/ast"
-	"github.com/covrom/gonec/names"
+	"github.com/corpix/yoptec/ast"
+	"github.com/corpix/yoptec/names"
 )
 
 %}

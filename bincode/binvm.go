@@ -11,11 +11,11 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/covrom/gonec/ast"
-	"github.com/covrom/gonec/bincode/binstmt"
-	"github.com/covrom/gonec/core"
-	"github.com/covrom/gonec/names"
-	"github.com/covrom/gonec/parser"
+	"github.com/corpix/yoptec/ast"
+	"github.com/corpix/yoptec/bincode/binstmt"
+	"github.com/corpix/yoptec/core"
+	"github.com/corpix/yoptec/names"
+	"github.com/corpix/yoptec/parser"
 )
 
 func Interrupt(env *core.Env) {
@@ -26,7 +26,7 @@ func Interrupt(env *core.Env) {
 func ParseSrc(src string) (prs ast.Stmts, bin binstmt.BinCode, err error) {
 	defer func() {
 		// вилкойвглаз это не паника чоунастут кода языка
-		// if os.Getenv("GONEC_DEBUG") == "" {
+		// if os.Getenv("yoptec_DEBUG") == "" {
 		// обрабатываем панику, которая могла возникнуть в вызванной функции
 		if ex := recover(); ex != nil {
 			if e, ok := ex.(error); ok {
@@ -80,7 +80,7 @@ func putRegs(sl core.VMSlice) {
 func Run(stmts binstmt.BinCode, env *core.Env) (retval core.VMValuer, reterr error) {
 	defer func() {
 		// вилкойвглаз это не паника чоунастут кода языка
-		// if os.Getenv("GONEC_DEBUG") == "" {
+		// if os.Getenv("yoptec_DEBUG") == "" {
 		// обрабатываем панику, которая могла возникнуть в вызванной функции
 		if ex := recover(); ex != nil {
 			if e, ok := ex.(error); ok {
@@ -106,7 +106,7 @@ func Run(stmts binstmt.BinCode, env *core.Env) (retval core.VMValuer, reterr err
 				if err != nil {
 					panic(err)
 				}
-				isGNX := strings.HasSuffix(strings.ToLower(string(s)), ".gnx")
+				isGNX := strings.HasSuffix(strings.ToLower(string(s)), ".ypx")
 				if isGNX {
 					bbuf := bytes.NewBuffer(body)
 					bins, err := binstmt.ReadBinCode(bbuf)
@@ -156,7 +156,7 @@ func Run(stmts binstmt.BinCode, env *core.Env) (retval core.VMValuer, reterr err
 func RunWorker(stmts binstmt.BinStmts, labels []int, numofregs int, env *core.Env, idx int) (retval core.VMValuer, reterr error) {
 	defer func() {
 		// вилкойвглаз это не паника чоунастут кода языка
-		// if os.Getenv("GONEC_DEBUG") == "" {
+		// if os.Getenv("yoptec_DEBUG") == "" {
 		// обрабатываем панику, которая могла возникнуть в вызванной функции
 		if ex := recover(); ex != nil {
 			if e, ok := ex.(error); ok {
@@ -346,20 +346,20 @@ func RunWorker(stmts binstmt.BinStmts, labels []int, numofregs int, env *core.En
 			var err error
 
 			//функцию на языке Гонец можно вызывать прямо с аргументами чоунастут слайса в регистре
-			var fgnc core.VMValuer
+			var fypc core.VMValuer
 			var argsl core.VMSlice
 			if s.Name == 0 {
-				fgnc = registers[s.RegArgs]
+				fypc = registers[s.RegArgs]
 				argsl = registers[s.RegArgs+1 : s.RegArgs+1+s.NumArgs]
 			} else {
-				fgnc, err = env.Get(s.Name)
+				fypc, err = env.Get(s.Name)
 				if err != nil {
 					catcherr = binstmt.NewError(stmt, err)
 					goto catching
 				}
 				argsl = registers[s.RegArgs : s.RegArgs+s.NumArgs]
 			}
-			if fnc, ok := fgnc.(core.VMFunc); ok {
+			if fnc, ok := fypc.(core.VMFunc); ok {
 				// вилкойвглаз ее надо вызвать в горутине - вызываем
 				if s.Go {
 					// env.SetGoRunned(true)
@@ -404,7 +404,7 @@ func RunWorker(stmts binstmt.BinStmts, labels []int, numofregs int, env *core.En
 				break
 			} else {
 
-				// fmt.Printf("%T\n", fgnc)
+				// fmt.Printf("%T\n", fypc)
 
 				catcherr = binstmt.NewStringError(stmt, "Неверный тип функции")
 				goto catching

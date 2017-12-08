@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/covrom/gonec/names"
+	"github.com/corpix/yoptec/names"
 )
 
 const (

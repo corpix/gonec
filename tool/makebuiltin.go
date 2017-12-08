@@ -108,11 +108,11 @@ func main() {
 		}
 		sort.Strings(keys)
 		_, pn := filepath.Split(pkg)
-		fmt.Printf(`// Package %s implements %s interface for gonec script.
+		fmt.Printf(`// Package %s implements %s interface for yoptec script.
 package %s
 
 import (
-	envir "github.com/covrom/gonec/core"
+	envir "github.com/corpix/yoptec/core"
 	pkg "%s"
 )
 

@@ -5,9 +5,9 @@ import (
 	"log"
 	"testing"
 
-	"github.com/covrom/gonec/bincode"
-	"github.com/covrom/gonec/core"
-	"github.com/covrom/gonec/parser"
+	"github.com/corpix/yoptec/bincode"
+	"github.com/corpix/yoptec/core"
+	"github.com/corpix/yoptec/parser"
 )
 
 func TestRun(t *testing.T) {
@@ -25,9 +25,9 @@ func TestRun(t *testing.T) {
 	стопэжы
 	сообщить(к, ПрошлоВремениС(дтнач))
 	
-	#gonec.exe -web -t
-	#go tool pprof -pdf ./gonec.exe http://localhost:5000/debug/pprof/profile?seconds=60 > cpu.pdf
-	#go tool pprof -pdf --alloc_objects ./gonec.exe http://localhost:5000/debug/pprof/heap > mem.pdf
+	#yoptec.exe -web -t
+	#go tool pprof -pdf ./yoptec.exe http://localhost:5000/debug/pprof/profile?seconds=60 > cpu.pdf
+	#go tool pprof -pdf --alloc_objects ./yoptec.exe http://localhost:5000/debug/pprof/heap > mem.pdf
 	
 	а=захуярить("__функциональнаяструктуратест__",{"ПолеСтрока": "цщушаццке", "ПолеЦелоеЧисло": 3456})
   сообщить(а)

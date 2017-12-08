@@ -1,7 +1,7 @@
-package gonecsvc
+package yoptecsvc
 
 import (
-		"github.com/covrom/gonec/version"
+		"github.com/corpix/yoptec/version"
 )
 
 const indexPage = 
@@ -11,7 +11,7 @@ const indexPage =
 	<meta charset="utf-8">
 	<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge" /><![endif]-->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<script src="/gonec/src?name=jquery"></script>
+	<script src="/yoptec/src?name=jquery"></script>
 	
 	<title>Гонец:Микросервисы</title>
 
@@ -85,7 +85,7 @@ const indexPage =
 </head>
 <body bgcolor=#25282c>
 	<div id="head" itemprop="name">	
-	<a href="https://github.com/covrom/gonec/wiki" style="text-decoration: none">
+	<a href="https://github.com/corpix/yoptec/wiki" style="text-decoration: none">
 	<img id="headimg" alt="ГОНЕЦ" src="data:image/png;base64,
 	iVBORw0KGgoAAAANSUhEUgAAAIYAAAAtCAYAAABrohO8AAAABmJLR0QA/wD/AP+gvaeTAAAACXBI
 	WXMAAAUZAAAFGQEBTwGjAAAAB3RJTUUH4QoODyUZPGcyDwAAIABJREFUeNrtXHl0FFX2/l5t3Z1O
@@ -405,13 +405,13 @@ const indexPage =
 база.Закрыть()
 
 	</div>
-		<script src="/gonec/src?name=ace" type="text/javascript" charset="utf-8"></script>
-		<script src="/gonec/src?name=acetheme" type="text/javascript" charset="utf-8"></script>
-		<script src="/gonec/src?name=acelang" type="text/javascript" charset="utf-8"></script>
+		<script src="/yoptec/src?name=ace" type="text/javascript" charset="utf-8"></script>
+		<script src="/yoptec/src?name=acetheme" type="text/javascript" charset="utf-8"></script>
+		<script src="/yoptec/src?name=acelang" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			require("ace/ext/language_tools");
 			var editor = ace.edit("code");
-			editor.getSession().setMode("ace/mode/gonec");
+			editor.getSession().setMode("ace/mode/yoptec");
 			editor.setTheme("ace/theme/tomorrow_night");
 			editor.setOptions({
 				enableBasicAutocompletion: true,
@@ -421,7 +421,7 @@ const indexPage =
 			$(document).ready(function() {
 				$('#run').click(function(){
 					var body = editor.getValue();
-					$.ajax('/gonec', {
+					$.ajax('/yoptec', {
 						type: 'POST',
 						data: body,
 						processData : false,

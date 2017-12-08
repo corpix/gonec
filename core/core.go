@@ -1,4 +1,4 @@
-// Package core implements core interface for gonec script.
+// Package core implements core interface for yoptec script.
 package core
 
 import (
@@ -11,7 +11,7 @@ import (
 
 	"github.com/covrom/decnum"
 
-	"github.com/covrom/gonec/names"
+	"github.com/corpix/yoptec/names"
 	"github.com/satori/go.uuid"
 )
 
@@ -20,8 +20,8 @@ func LoadAllBuiltins(env *Env) {
 	Import(env)
 
 	pkgs := map[string]func(env *Env) *Env{
-	// "sort":          gonec_sort.Import,
-	// "strings":       gonec_strings.Import,
+	// "sort":          yoptec_sort.Import,
+	// "strings":       yoptec_strings.Import,
 	}
 
 	env.DefineS("импорт", VMFunc(func(args VMSlice, rets *VMSlice, envout *(*Env)) error {
