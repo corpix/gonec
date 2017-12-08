@@ -317,7 +317,7 @@ func Import(env *Env) *Env {
 		return nil
 	}))
 
-	env.DefineS("сообщить", VMFunc(func(args VMSlice, rets *VMSlice, envout *(*Env)) error {
+	env.DefineS("малява", VMFunc(func(args VMSlice, rets *VMSlice, envout *(*Env)) error {
 		*envout = env
 		if len(args) == 0 {
 			env.Println()
@@ -328,7 +328,7 @@ func Import(env *Env) *Env {
 		return nil
 	}))
 
-	env.DefineS("сообщитьф", VMFunc(func(args VMSlice, rets *VMSlice, envout *(*Env)) error {
+	env.DefineS("маляваф", VMFunc(func(args VMSlice, rets *VMSlice, envout *(*Env)) error {
 		*envout = env
 		if len(args) < 2 {
 			return VMErrorNeedFormatAndArgs
