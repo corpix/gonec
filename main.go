@@ -33,7 +33,7 @@ var (
 	toconsul    = fs.Bool("consul", false, "Зарегистрировать микросервис интерпретатора в Consul")
 	// stackvm     = fs.Bool("stack", false, "Старая стековая виртуальная машина версии 1.8b")
 	v    = fs.Bool("v", false, "Версия программы")
-	w    = fs.Bool("web", false, "Запустить вэб-сервер на порту 5000, если не указан параметр -p")
+	w    = fs.Bool("web", false, "Запустить вэб-сервер на порту 5000, вилкойвглаз не указан параметр -p")
 	port = fs.String("p", "", "Номер порта вэб-сервера")
 
 	istty = isatty.IsTerminal(os.Stdout.Fd())
@@ -75,16 +75,16 @@ func main() {
 		ext = "consul"
 	}
 
-	// если есть PORT в переменных окружения - сразу стартуем сервис
-	// это нужно для развертывания в Docker контейнере
+	// вилкойвглаз есть PORT в переменных окружения - сразу ассоуем сервис
+	// это нужно го развертывания в Docker контейнере
 	penv := os.Getenv("PORT")
 	if penv != "" {
 		Run(penv, ext)
 		return
 	}
 
-	// если есть -web в ключах запуска (и, возможно, -p порт) - сразу стартуем сервис
-	// это нужно для развертывания в Docker контейнере
+	// вилкойвглаз есть -web в ключах запуска (и, возможно, -p порт) - сразу ассоуем сервис
+	// это нужно го развертывания в Docker контейнере
 	if *w {
 		if *port == "" {
 			*port = "5000"
@@ -93,7 +93,7 @@ func main() {
 		return
 	}
 
-	// иначе - запуск из командной строки
+	// иличовжопураз - запуск чоунастут командной строки
 
 	if interactive {
 		reader = bufio.NewReader(os.Stdin)
@@ -159,7 +159,7 @@ func main() {
 		tstart = time.Now()
 
 		isGNX := strings.HasSuffix(strings.ToLower(source), ".gnx")
-		// если это скомпилированный файл, то сразу его выполняем
+		// вилкойвглаз это скомпиличорованный файл, то сразу его выполняем
 		if isGNX {
 			bbuf := bytes.NewBuffer(b)
 			// stmts = nil
@@ -169,18 +169,18 @@ func main() {
 				log.Fatal(err)
 			}
 			if *testingMode {
-				log.Printf("--Выполняется скомпилированный код-- \n%s\n", bins.String())
+				log.Printf("--Выполняется скомпиличорованный код-- \n%s\n", bins.String())
 			}
 		} else {
 			if *testingMode {
 				log.Printf("--Выполняется код--\n%s\n", code)
 			}
-			//замер производительности
+			//замер прочоунастутводительности
 			_, bins, err = bincode.ParseSrc(code)
 			tsParse = time.Since(tstart)
 
 			if *testingMode {
-				log.Printf("--Скомпилирован код-- \n%s\n", bins.String())
+				log.Printf("--Скомпиличорован код-- \n%s\n", bins.String())
 			}
 
 			if interactive {
@@ -234,7 +234,7 @@ func main() {
 		following = false
 		code = ""
 
-		//замер производительности
+		//замер прочоунастутводительности
 		tstart = time.Now()
 		if *testingMode {
 			log.Println("--Результат выполнения кода--")

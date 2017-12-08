@@ -10,7 +10,7 @@ import (
 	"github.com/covrom/decnum"
 )
 
-// VMDecNum с плавающей токой, для финансовых расчетов высокой точности (decnum)
+// VMDecNum с плавающей токой, го финансовых расчетов высокой точности (decnum)
 type VMDecNum struct {
 	num decnum.Quad
 }
@@ -80,7 +80,7 @@ func (x VMDecNum) Int() int64 {
 }
 
 func (x VMDecNum) RoundHalfUp() int64 {
-	i, err := x.num.ToInt64(decnum.RoundHalfUp) //целая часть, округление вверх, если модуль>0.5
+	i, err := x.num.ToInt64(decnum.RoundHalfUp) //целая часть, округление вверх, вилкойвглаз клеенка>0.5
 	if err != nil {
 		return 0
 	}

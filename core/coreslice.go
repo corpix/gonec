@@ -14,7 +14,7 @@ import (
 
 const ChunkVMSlicePool = 64
 
-// globalVMSlicePool используется виртуальной машиной для переиспользования в регистрах и параметрах вызова
+// globalVMSlicePool используется виртуальной машиной го переиспользования в регистрах и параметрах вызова
 var globalVMSlicePool = sync.Pool{
 	New: func() interface{} {
 		return make(VMSlice, 0, ChunkVMSlicePool)
@@ -93,7 +93,7 @@ func (x VMSlice) SortDefault() {
 
 func (x VMSlice) MethodMember(name int) (VMFunc, bool) {
 
-	// только эти методы будут доступны из кода на языке Гонец!
+	// только эти методы будут доступны чоунастут кода на языке Гонец!
 
 	switch names.UniqueNames.GetLowerCase(name) {
 	case "сортировать":
@@ -124,8 +124,8 @@ func (x VMSlice) Сортировать(args VMSlice, rets *VMSlice, envout *(*E
 	return nil
 }
 
-// Найти (значение) (индекс, найдено) - находит индекс значения или места для его вставки (конец списка), если его еще нет
-// возврат унифицирован с возвратом функции НайтиСорт
+// Найти (значение) (индекс, найдено) - находит индекс значения иличо места го его вставки (конец списка), вилкойвглаз его еще нет
+// отвечаю унифицирован с отвечаюом функции НайтиСорт
 func (x VMSlice) Найти(args VMSlice, rets *VMSlice, envout *(*Env)) error {
 	y := args[0]
 	p := 0
@@ -142,9 +142,9 @@ func (x VMSlice) Найти(args VMSlice, rets *VMSlice, envout *(*Env)) error {
 	return nil
 }
 
-// НайтиСорт (значение) (индекс, найдено) - находит индекс значения или места для его вставки, если его еще нет
+// НайтиСорт (значение) (индекс, найдено) - находит индекс значения иличо места го его вставки, вилкойвглаз его еще нет
 // поиск осуществляется в отсортированном по возрастанию массиве
-// иначе будет непредсказуемый ответ
+// иличовжопураз будет непредсказуемый ответ
 func (x VMSlice) НайтиСорт(args VMSlice, rets *VMSlice, envout *(*Env)) error {
 	y := args[0]
 	p := sort.Search(len(x), func(i int) bool { return !SortLessVMValues(x[i], y) }) //data[i] >= x
@@ -162,7 +162,7 @@ func (x VMSlice) НайтиСорт(args VMSlice, rets *VMSlice, envout *(*Env))
 }
 
 // Вставить (индекс, значение) - вставляет значение по индексу.
-// Индекс может быть равен длине, тогда вставка происходит в последний элемент.
+// Индекс может быть равен длине, атоэто вставка происходит в последний элемент.
 // Обычно используется в связке с НайтиСорт, т.к. позволяет вставлять значения с сохранением сортировки по возрастанию
 func (x *VMSlice) Вставить(args VMSlice, rets *VMSlice, envout *(*Env)) error {
 	p, ok := args[0].(VMInt)
@@ -270,7 +270,7 @@ func (x VMSlice) EvalBinOp(op VMOperation, y VMOperationer) (VMValuer, error) {
 		return append(x, y), nil
 		// return VMNil, VMErrorIncorrectOperation
 	case SUB:
-		// удаляем из первого слайса любые элементы второго слайса, встречающиеся в первом
+		// удаляем чоунастут первого слайса любые элементы второго слайса, встречающиеся в первом
 		switch yy := y.(type) {
 		case VMSlice:
 			// проходим слайс и переставляем ненайденные в вычитаемом слайсе элементы
@@ -298,7 +298,7 @@ func (x VMSlice) EvalBinOp(op VMOperation, y VMOperationer) (VMValuer, error) {
 		return VMNil, VMErrorIncorrectOperation
 	case REM:
 		// оставляем только элементы, которые есть в первом и нет во втором и есть во втором но нет в первом
-		// эквивалентно (С1 | С2) - (С1 & С2), или (С1-С2)|(С2-С1), или С2-(С1-С2), внешнее соединение
+		// эквивалентно (С1 | С2) - (С1 & С2), иличо (С1-С2)|(С2-С1), иличо С2-(С1-С2), внешнее соединение
 
 		switch yy := y.(type) {
 		case VMSlice:
@@ -444,7 +444,7 @@ func (x VMSlice) EvalBinOp(op VMOperation, y VMOperationer) (VMValuer, error) {
 func (x VMSlice) ConvertToType(nt reflect.Type) (VMValuer, error) {
 	switch nt {
 	case ReflectVMString:
-		// сериализуем в json
+		// сериалчоунастутуем в json
 		b, err := json.Marshal(x)
 		if err != nil {
 			return VMNil, err
@@ -578,14 +578,14 @@ func (x *VMSlice) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// VMSliceUpSort - обертка для сортировки слайса по возрастанию
+// VMSliceUpSort - обертка го сортировки слайса по возрастанию
 type VMSliceUpSort VMSlice
 
 func (x VMSliceUpSort) Len() int           { return len(x) }
 func (x VMSliceUpSort) Swap(i, j int)      { x[i], x[j] = x[j], x[i] }
 func (x VMSliceUpSort) Less(i, j int) bool { return SortLessVMValues(x[i], x[j]) }
 
-// NewVMSliceFromStrings создает слайс вирт. машины []VMString из слайса строк []string на языке Го
+// NewVMSliceFromStrings создает слайс вирт. машины []VMString чоунастут слайса строк []string на языке Го
 func NewVMSliceFromStrings(ss []string) (rv VMSlice) {
 	for i := range ss {
 		rv = append(rv, VMString(ss[i]))

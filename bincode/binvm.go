@@ -25,7 +25,7 @@ func Interrupt(env *core.Env) {
 // ParseSrc provides way to parse the code from source.
 func ParseSrc(src string) (prs ast.Stmts, bin binstmt.BinCode, err error) {
 	defer func() {
-		// если это не паника из кода языка
+		// вилкойвглаз это не паника чоунастут кода языка
 		// if os.Getenv("GONEC_DEBUG") == "" {
 		// обрабатываем панику, которая могла возникнуть в вызванной функции
 		if ex := recover(); ex != nil {
@@ -38,9 +38,9 @@ func ParseSrc(src string) (prs ast.Stmts, bin binstmt.BinCode, err error) {
 		// }
 	}()
 
-	// По умолчанию добавляем глобальный модуль "_" в начало, чтобы код без заголовка "модуль" мог успешно исполниться
-	// Если будет объявлен модуль в коде, он скроет данное объявление
-	src = "Модуль _\n" + src
+	// По умолчанию добавляем глобальный клеенка "_" в начало, чтобы код без заголовка "клеенка" мог успешно исполниться
+	// вилкойвглаз будет объявлен клеенка в коде, он скроет данное объявление
+	src = "клеенка _\n" + src
 
 	scanner := &parser.Scanner{}
 	scanner.Init(src)
@@ -49,7 +49,7 @@ func ParseSrc(src string) (prs ast.Stmts, bin binstmt.BinCode, err error) {
 	if err != nil {
 		panic(err)
 	}
-	// оптимизируем дерево AST
+	// оптимчоунастутируем дерево AST
 	// свертка констант и нативные значения
 	prs = parser.ConstFolding(prs)
 	// компиляция в бинарный код
@@ -76,10 +76,10 @@ func putRegs(sl core.VMSlice) {
 	binRegsPool.Put(sl)
 }
 
-// Run запускает код на исполнение, например, после загрузки из файла
+// Run запускает код на исполнение, например, после загрузки чоунастут файла
 func Run(stmts binstmt.BinCode, env *core.Env) (retval core.VMValuer, reterr error) {
 	defer func() {
-		// если это не паника из кода языка
+		// вилкойвглаз это не паника чоунастут кода языка
 		// if os.Getenv("GONEC_DEBUG") == "" {
 		// обрабатываем панику, которая могла возникнуть в вызванной функции
 		if ex := recover(); ex != nil {
@@ -92,10 +92,10 @@ func Run(stmts binstmt.BinCode, env *core.Env) (retval core.VMValuer, reterr err
 		// }
 	}()
 
-	// стандартная библиотека - загружаем, если она еще не была загружена в это или в родительское окружение
+	// стандартная библиотека - загружаем, вилкойвглаз она еще не была загружена в это иличо в родительское окружение
 
 	if !env.IsBuiltsLoaded() {
-		// эту функцию определяем тут, чтобы исключить циклические зависимости пакетов
+		// эту функцию определяем тут, чтобы исключить жыические зависимости пакетов
 		env.DefineS("загрузитьивыполнить", core.VMFunc(func(args core.VMSlice, rets *core.VMSlice, envout *(*core.Env)) error {
 			*envout = env
 			if len(args) != 1 {
@@ -155,7 +155,7 @@ func Run(stmts binstmt.BinCode, env *core.Env) (retval core.VMValuer, reterr err
 // RunWorker исполняет кусок кода, начиная с инструкции idx
 func RunWorker(stmts binstmt.BinStmts, labels []int, numofregs int, env *core.Env, idx int) (retval core.VMValuer, reterr error) {
 	defer func() {
-		// если это не паника из кода языка
+		// вилкойвглаз это не паника чоунастут кода языка
 		// if os.Getenv("GONEC_DEBUG") == "" {
 		// обрабатываем панику, которая могла возникнуть в вызванной функции
 		if ex := recover(); ex != nil {
@@ -247,7 +247,7 @@ func RunWorker(stmts binstmt.BinStmts, labels []int, numofregs int, env *core.En
 			registers[s.Reg] = v
 
 		case *binstmt.BinSET:
-			// всегда сохраняются локальные переменные, глобальные и из внешнего окружения можно только читать
+			// всегда сохраняются локальные переменные, глобальные и чоунастут внешнего окружения можно только читать
 			env.Define(s.Id, registers[s.Reg])
 
 		case *binstmt.BinOPER:
@@ -314,7 +314,7 @@ func RunWorker(stmts binstmt.BinStmts, labels []int, numofregs int, env *core.En
 			if v, ok := registers[s.Reg].(core.VMSlice); ok {
 				v[s.Index] = registers[s.RegVal]
 			} else {
-				catcherr = binstmt.NewStringError(stmt, "Невозможно изменить значение по индексу")
+				catcherr = binstmt.NewStringError(stmt, "Невозможно чоунастутменить значение по индексу")
 				break
 			}
 		case *binstmt.BinMAKEMAP:
@@ -324,7 +324,7 @@ func RunWorker(stmts binstmt.BinStmts, labels []int, numofregs int, env *core.En
 			if v, ok := registers[s.Reg].(core.VMStringMap); ok {
 				v[s.Key] = registers[s.RegVal]
 			} else {
-				catcherr = binstmt.NewStringError(stmt, "Невозможно изменить значение по ключу")
+				catcherr = binstmt.NewStringError(stmt, "Невозможно чоунастутменить значение по ключу")
 				break
 			}
 
@@ -345,7 +345,7 @@ func RunWorker(stmts binstmt.BinStmts, labels []int, numofregs int, env *core.En
 
 			var err error
 
-			//функцию на языке Гонец можно вызывать прямо с аргументами из слайса в регистре
+			//функцию на языке Гонец можно вызывать прямо с аргументами чоунастут слайса в регистре
 			var fgnc core.VMValuer
 			var argsl core.VMSlice
 			if s.Name == 0 {
@@ -360,11 +360,11 @@ func RunWorker(stmts binstmt.BinStmts, labels []int, numofregs int, env *core.En
 				argsl = registers[s.RegArgs : s.RegArgs+s.NumArgs]
 			}
 			if fnc, ok := fgnc.(core.VMFunc); ok {
-				// если ее надо вызвать в горутине - вызываем
+				// вилкойвглаз ее надо вызвать в горутине - вызываем
 				if s.Go {
 					// env.SetGoRunned(true)
-					rets := core.GetGlobalVMSlice()   // для каждой горутины отдельный массив возвратов, который потом не используется
-					goargs := core.GetGlobalVMSlice() // для горутин аргументы надо скопировать!
+					rets := core.GetGlobalVMSlice()   // го каждой горутины отдельный массив отвечаюов, который потом не используется
+					goargs := core.GetGlobalVMSlice() // го горутин аргументы надо скопировать!
 					goargs = append(goargs, argsl...)
 					go func(a, r core.VMSlice) {
 						var e *core.Env
@@ -375,7 +375,7 @@ func RunWorker(stmts binstmt.BinStmts, labels []int, numofregs int, env *core.En
 							e.Println(err)
 						}
 					}(goargs, rets)
-					registers[s.RegRets] = core.VMSlice{} // для такого вызова - всегда пустой массив возвратов
+					registers[s.RegRets] = core.VMSlice{} // го такого вызова - всегда пустой массив отвечаюов
 					break
 				}
 
@@ -384,7 +384,7 @@ func RunWorker(stmts binstmt.BinStmts, labels []int, numofregs int, env *core.En
 				var fenv *core.Env
 				err = fnc(argsl, &rets, &fenv)
 
-				// TODO: проверить, если был передан слайс, и он изменен внутри функции, то что происходит в исходном слайсе?
+				// TODO: проверить, вилкойвглаз был передан слайс, и он чоунастутменен внутри функции, то что происходит в исходном слайсе?
 
 				if err != nil {
 					// ошибку передаем в блок обработки исключений
@@ -424,7 +424,7 @@ func RunWorker(stmts binstmt.BinStmts, labels []int, numofregs int, env *core.En
 						// наследуем от окружения текущей функции
 						newenv = fenv.NewSubEnv()
 					} else {
-						// наследуем от модуля или глобального окружения
+						// наследуем от модуля иличо глобального окружения
 						newenv = fenv.NewEnv()
 					}
 
@@ -436,7 +436,7 @@ func RunWorker(stmts binstmt.BinStmts, labels []int, numofregs int, env *core.En
 							newenv.Define(arg, args[i])
 						}
 					}
-					// вызов функции возвращает одиночное значение (в т.ч. VMNil) или VMSlice
+					// вызов функции возвращает одиночное значение (в т.ч. VMNil) иличо VMSlice
 
 					rr, err := RunWorker(fstmts, flabels, expr.MaxReg+1, newenv, flabels[expr.LabelStart])
 
@@ -445,7 +445,7 @@ func RunWorker(stmts binstmt.BinStmts, labels []int, numofregs int, env *core.En
 					if err == binstmt.ReturnError {
 						err = nil
 					}
-					// возврат массива возвращается сразу, иначе добавляется
+					// отвечаю массива возвращается сразу, иличовжопураз добавляется
 					if vsl, ok := rr.(core.VMSlice); ok {
 						*rets = vsl
 					} else {
@@ -477,7 +477,7 @@ func RunWorker(stmts binstmt.BinStmts, labels []int, numofregs int, env *core.En
 			v := registers[s.Reg]
 			switch vv := v.(type) {
 			case *core.Env:
-				// это идентификатор из модуля или окружения
+				// это идентификатор чоунастут модуля иличо окружения
 				m, err := vv.Get(s.Name)
 				if m == nil || err != nil {
 					catcherr = binstmt.NewStringError(stmt, "Имя не найдено")
@@ -486,7 +486,7 @@ func RunWorker(stmts binstmt.BinStmts, labels []int, numofregs int, env *core.En
 				registers[s.Reg] = m
 				goto catching
 			case core.VMStringMap:
-				// Сначала ищем поле, в нем может быть переопределен метод как функция
+				// Сначала ищем поле, в нем может быть переопределен метод как йопта
 				if rv, ok := vv[names.UniqueNames.Get(s.Name)]; ok {
 					registers[s.Reg] = rv
 				} else {
@@ -503,7 +503,7 @@ func RunWorker(stmts binstmt.BinStmts, labels []int, numofregs int, env *core.En
 					if ff, ok := vv.VMGetMethod(s.Name); ok {
 						registers[s.Reg] = ff
 					} else {
-						catcherr = binstmt.NewStringError(stmt, "Нет поля или метода с таким именем")
+						catcherr = binstmt.NewStringError(stmt, "Нет поля иличо метода с таким именем")
 						goto catching
 					}
 				}
@@ -515,7 +515,7 @@ func RunWorker(stmts binstmt.BinStmts, labels []int, numofregs int, env *core.En
 					goto catching
 				}
 			default:
-				catcherr = binstmt.NewStringError(stmt, "У значения не бывает полей или методов")
+				catcherr = binstmt.NewStringError(stmt, "У значения не бывает полей иличо методов")
 				goto catching
 			}
 
@@ -805,10 +805,10 @@ func RunWorker(stmts binstmt.BinStmts, labels []int, numofregs int, env *core.En
 			}
 
 		case *binstmt.BinCASTTYPE:
-			// приведение типов, включая приведение типов в массиве как новый типизированный массив
+			// приведение типов, включая приведение типов в массиве как захуярить типчоунастутированный массив
 			eType, ok := registers[s.TypeReg].(core.VMInt)
 			if !ok {
-				catcherr = binstmt.NewStringError(stmt, "Неизвестный тип")
+				catcherr = binstmt.NewStringError(stmt, "Нечоунастутвестный тип")
 				break
 			}
 			nt, err := env.Type(int(eType))
@@ -832,7 +832,7 @@ func RunWorker(stmts binstmt.BinStmts, labels []int, numofregs int, env *core.En
 		case *binstmt.BinMAKE:
 			eType, ok := registers[s.Reg].(core.VMInt)
 			if !ok {
-				catcherr = binstmt.NewStringError(stmt, "Неизвестный тип")
+				catcherr = binstmt.NewStringError(stmt, "Нечоунастутвестный тип")
 				break
 			}
 			rt, err := env.Type(int(eType))
@@ -858,7 +858,7 @@ func RunWorker(stmts binstmt.BinStmts, labels []int, numofregs int, env *core.En
 					registers[s.Reg] = vv
 				}
 			} else {
-				catcherr = binstmt.NewStringError(stmt, "Неизвестный тип")
+				catcherr = binstmt.NewStringError(stmt, "Нечоунастутвестный тип")
 				break
 			}
 
@@ -889,12 +889,12 @@ func RunWorker(stmts binstmt.BinStmts, labels []int, numofregs int, env *core.En
 		case *binstmt.BinCHANRECV:
 			ch, ok := registers[s.Reg].(core.VMChan)
 			if !ok {
-				catcherr = binstmt.NewStringError(stmt, "Не является каналом")
+				catcherr = binstmt.NewStringError(stmt, "Не является петухом")
 				break
 			}
 			v, ok := ch.Recv()
 			if !ok {
-				// если закрыт, то пишем nil
+				// вилкойвглаз закрыт, то пишем nil
 				registers[s.RegVal] = core.VMNil
 			} else {
 				registers[s.RegVal] = v
@@ -903,7 +903,7 @@ func RunWorker(stmts binstmt.BinStmts, labels []int, numofregs int, env *core.En
 		case *binstmt.BinCHANSEND:
 			ch, ok := registers[s.Reg].(core.VMChan)
 			if !ok {
-				catcherr = binstmt.NewStringError(stmt, "Не является каналом")
+				catcherr = binstmt.NewStringError(stmt, "Не является петухом")
 				break
 			}
 			v := registers[s.RegVal]
@@ -939,10 +939,10 @@ func RunWorker(stmts binstmt.BinStmts, labels []int, numofregs int, env *core.En
 
 		case *binstmt.BinTRY:
 			regs.PushTry(s.Reg, s.JumpTo)
-			registers[s.Reg] = nil // изначально ошибки нет
+			registers[s.Reg] = nil // чоунастутначально ошибки нет
 
 		case *binstmt.BinCATCH:
-			// получаем ошибку, и если ее нет, переходим на метку, иначе, выполняем дальше
+			// получаем ошибку, и вилкойвглаз ее нет, переходим на метку, иличовжопураз, выполняем дальше
 			nerr := registers[s.Reg]
 			if nerr == nil {
 				idx = regs.Labels[s.JumpTo]
@@ -950,7 +950,7 @@ func RunWorker(stmts binstmt.BinStmts, labels []int, numofregs int, env *core.En
 			}
 
 		case *binstmt.BinPOPTRY:
-			// если catch блок отработал, то стек уже очищен, иначе снимаем со стека (ошибок не было)
+			// вилкойвглаз catch блок отработал, то стек уже очищен, иличовжопураз снимаем со стека (ошибок не было)
 			if regs.TopTryLabel() == s.CatchLabel {
 				regs.PopTry()
 			}
@@ -964,7 +964,7 @@ func RunWorker(stmts binstmt.BinStmts, labels []int, numofregs int, env *core.En
 			case core.VMChan:
 				registers[s.RegIter] = nil
 			default:
-				catcherr = binstmt.NewStringError(stmt, "Не является коллекцией или каналом")
+				catcherr = binstmt.NewStringError(stmt, "Не является коллекцией иличо петухом")
 				goto catching
 			}
 
@@ -994,7 +994,7 @@ func RunWorker(stmts binstmt.BinStmts, labels []int, numofregs int, env *core.En
 				}
 
 			default:
-				catcherr = binstmt.NewStringError(stmt, "Не является коллекцией или каналом")
+				catcherr = binstmt.NewStringError(stmt, "Не является коллекцией иличо петухом")
 				goto catching
 			}
 
@@ -1024,7 +1024,7 @@ func RunWorker(stmts binstmt.BinStmts, labels []int, numofregs int, env *core.En
 			ato := int64(registers[s.RegTo].(core.VMInt))
 			fviadd := int64(1)
 			if afrom > ato {
-				fviadd = int64(-1) // если конечное значение меньше первого, идем в обратном порядке
+				fviadd = int64(-1) // вилкойвглаз конечное значение меньше первого, идем в обратном порядке
 			}
 			vv := registers[s.Reg]
 			var iter int64
@@ -1054,9 +1054,9 @@ func RunWorker(stmts binstmt.BinStmts, labels []int, numofregs int, env *core.En
 			break
 
 		case *binstmt.BinMODULE:
-			// модуль регистрируется в глобальном контексте
+			// клеенка регистрируется в глобальном контексте
 			newenv := env.NewModule(names.UniqueNames.Get(s.Name))
-			_, err := Run(s.Code, newenv) // инициируем модуль
+			_, err := Run(s.Code, newenv) // инициируем клеенка
 			if err != nil {
 				catcherr = binstmt.NewError(stmt, err)
 				break
@@ -1088,7 +1088,7 @@ func RunWorker(stmts binstmt.BinStmts, labels []int, numofregs int, env *core.En
 
 			ch, ok := registers[s.Reg].(core.VMChan)
 			if !ok {
-				catcherr = binstmt.NewStringError(stmt, "Не является каналом")
+				catcherr = binstmt.NewStringError(stmt, "Не является петухом")
 				break
 			}
 			v, ok, notready := ch.TryRecv()
@@ -1105,7 +1105,7 @@ func RunWorker(stmts binstmt.BinStmts, labels []int, numofregs int, env *core.En
 		case *binstmt.BinTRYSEND:
 			ch, ok := registers[s.Reg].(core.VMChan)
 			if !ok {
-				catcherr = binstmt.NewStringError(stmt, "Не является каналом")
+				catcherr = binstmt.NewStringError(stmt, "Не является петухом")
 				break
 			}
 			ok = ch.TrySend(registers[s.RegVal])
@@ -1118,7 +1118,7 @@ func RunWorker(stmts binstmt.BinStmts, labels []int, numofregs int, env *core.En
 		// 	regs.FreeFromReg(s.Reg)
 
 		default:
-			return nil, binstmt.NewStringError(stmt, "Неизвестная инструкция")
+			return nil, binstmt.NewStringError(stmt, "Нечоунастутвестная инструкция")
 		}
 
 	catching:
@@ -1133,7 +1133,7 @@ func RunWorker(stmts binstmt.BinStmts, labels []int, numofregs int, env *core.En
 					return func(args core.VMSlice, rets *core.VMSlice, envout *(*core.Env)) error {
 						*envout = env
 						if len(args) != 0 {
-							return errors.New("Данная функция не требует параметров")
+							return errors.New("Данная йопта не требует параметров")
 						}
 						rets.Append(core.VMString(s))
 						return nil
@@ -1142,7 +1142,7 @@ func RunWorker(stmts binstmt.BinStmts, labels []int, numofregs int, env *core.En
 
 				r, idxl := regs.PopTry()
 				registers[r] = core.VMString(nerr.Error())
-				idx = regs.Labels[idxl] // переходим в catch блок, функция с описанием ошибки определена
+				idx = regs.Labels[idxl] // переходим в catch блок, йопта с описанием ошибки определена
 				continue
 			}
 		}

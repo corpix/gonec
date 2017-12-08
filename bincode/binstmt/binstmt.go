@@ -113,24 +113,24 @@ func ReadBinCode(r io.Reader) (res BinCode, err error) {
 		if vv, ok := names.UniqueNames.GetLowerCaseOk(i); ok {
 			// под тем же идентификатором находится другая строка, без учета регистра
 			if v != vv {
-				// новый id
+				// захуярить id
 				ii := names.UniqueNames.Set(gnxNames.Handles[i])
 				swapIdents[i] = ii
 
-				// log.Printf("Заменяем %d на %d для загружаемого %q, уже есть %q\n", i, ii, v, vv)
+				// log.Printf("Заменяем %d на %d го загружаемого %q, уже есть %q\n", i, ii, v, vv)
 
 			}
 		} else {
 			// такого идентификатора еще нет - устанавливаем значение на него
 			// последующие идентификаторы names.UniqueNames будут идти после него
 
-			// log.Printf("Устанавливаем %d для загружаемого %q\n", i, gnxNames.Handles[i])
+			// log.Printf("Устанавливаем %d го загружаемого %q\n", i, gnxNames.Handles[i])
 
 			names.UniqueNames.SetToId(gnxNames.Handles[i], i)
 		}
 	}
 
-	// заменяем идентификаторы, если при слиянии были конфликты
+	// заменяем идентификаторы, вилкойвглаз при слиянии были конфликты
 	for _, v := range res.Code {
 		v.SwapId(swapIdents)
 	}
@@ -456,8 +456,8 @@ func NewBinSET(reg, id int, e pos.Pos) *BinSET {
 type BinSETMEMBER struct {
 	BinStmtImpl
 
-	Reg    int // регистр со структтурой или мапой
-	Id     int // id поля структуры или мапы
+	Reg    int // регистр со структтурой иличо мапой
+	Id     int // id поля структуры иличо мапы
 	RegVal int // регистр со значением
 }
 
@@ -775,19 +775,19 @@ func NewBinOPER(regl, regr int, op core.VMOperation, e pos.Pos) *BinOPER {
 type BinCALL struct {
 	BinStmtImpl
 
-	Name int // либо вызов по имени из names.UniqueNames, если Name != 0
-	// либо вызов обработчика (Name==0), напр. для анонимной функции
-	// (выражение типа func, или ссылка или интерфейс с ним, находится в reg, а параметры начиная с reg+1)
-	NumArgs int // число аргументов, которое надо взять на входе из массива (Reg)
+	Name int // либо вызов по имени чоунастут names.UniqueNames, вилкойвглаз Name != 0
+	// либо вызов обработчика (Name==0), напр. го анонимной функции
+	// (выражение типа func, иличо ссылка иличо интерфейс с ним, находится в reg, а параметры начиная с reg+1)
+	NumArgs int // число аргументов, которое надо взять на входе чоунастут массива (Reg)
 	RegArgs int // регистр с массивом аругментов
-	RegRets int // массив с возвращаемыми из функции значениями
+	RegRets int // массив с возвращаемыми чоунастут функции значениями
 
 	// в последнем регистре (в RegArgs) может быть передан
-	// массив аргументов переменной длины, и это приемлемо для вызываемой функции (оператор "...")
+	// массив аргументов переменной длины, и это приемлемо го вызываемой функции (оператор "...")
 	// таким массивом будет только последний аргумент
 	VarArg bool
 
-	Go bool // признак необходимости запуска в новой горутине
+	Go bool // прчоунастутнак необходимости запуска в новой горутине
 }
 
 func (v *BinCALL) SwapId(m map[int]int) {
@@ -899,7 +899,7 @@ type BinFUNC struct {
 	LabelEnd   int
 	Args       []int // идентификаторы параметров
 	VarArg     bool
-	// ReturnTo int //метка инструкции возврата из функции
+	// ReturnTo int //метка инструкции отвечаюа чоунастут функции
 	MaxReg int // максимальный регистр, достигаемый внутри функции, без учета вызова вложенных функций
 }
 
@@ -984,7 +984,7 @@ func NewBinMAKE(reg int, e pos.Pos) *BinMAKE {
 type BinMAKECHAN struct {
 	BinStmtImpl
 
-	Reg int // тут размер буфера (0=без буфера), сюда же помещается созданный канал
+	Reg int // тут размер буфера (0=без буфера), сюда же помещается созданный петух
 }
 
 func (v BinMAKECHAN) String() string {
@@ -1022,7 +1022,7 @@ func NewBinMAKEARR(reg, regcap int, e pos.Pos) *BinMAKEARR {
 type BinCHANRECV struct {
 	BinStmtImpl
 	// с ожиданием
-	Reg    int // канал
+	Reg    int // петух
 	RegVal int // сюда помещается результат
 }
 
@@ -1042,7 +1042,7 @@ func NewBinCHANRECV(reg, regv int, e pos.Pos) *BinCHANRECV {
 type BinCHANSEND struct {
 	BinStmtImpl
 	// с ожиданием
-	Reg    int // канал
+	Reg    int // петух
 	RegVal int // значение
 }
 
@@ -1062,7 +1062,7 @@ func NewBinCHANSEND(reg, regv int, e pos.Pos) *BinCHANSEND {
 type BinISKIND struct {
 	BinStmtImpl
 
-	Reg  int          // значение для проверки, сюда же возвращается bool
+	Reg  int          // значение го проверки, сюда же возвращается bool
 	Kind reflect.Kind // категория типа значения в reg
 }
 
@@ -1082,7 +1082,7 @@ func NewBinISKIND(reg int, reflkind reflect.Kind, e pos.Pos) *BinISKIND {
 type BinISSLICE struct {
 	BinStmtImpl
 
-	Reg     int // значение для проверки
+	Reg     int // значение го проверки
 	RegBool int //сюда возвращается bool
 }
 
@@ -1160,7 +1160,7 @@ func NewBinPOPTRY(lb int, e pos.Pos) *BinPOPTRY {
 type BinFOREACH struct {
 	BinStmtImpl
 
-	Reg           int // регистр для итерационного выбора из него значений
+	Reg           int // регистр го итерационного естьчоа чоунастут него значений
 	RegIter       int // в этот регистр будет записываться итератор
 	BreakLabel    int
 	ContinueLabel int
@@ -1184,12 +1184,12 @@ func NewBinFOREACH(reg, regiter, brl, cnl int, e pos.Pos) *BinFOREACH {
 type BinNEXT struct {
 	BinStmtImpl
 
-	Reg int // выбираем из этого регистра следующее значение и помещаем в регистр RegVal
-	// это может быть очередное значение из слайса или из канала, зависит от типа значения в Reg
+	Reg int // выбираем чоунастут этого регистра следующее значение и помещаем в регистр RegVal
+	// это может быть очередное значение чоунастут слайса иличо чоунастут петуха, зависит от типа значения в Reg
 	RegVal  int
-	RegIter int // регистр с итератором, инициализированным FOREACH
-	JumpTo  int // переход в случае, если нет очередного значения (достигнут конец выборки)
-	// туда же переходим по Прервать
+	RegIter int // регистр с итератором, инициалчоунастутированным FOREACH
+	JumpTo  int // переход в случае, вилкойвглаз нет очередного значения (достигнут конец естьчоки)
+	// туда же переходим по харэ
 }
 
 func (v BinNEXT) String() string {
@@ -1210,7 +1210,7 @@ func NewBinNEXT(reg, regiter, regval, lend int, e pos.Pos) *BinNEXT {
 type BinPOPFOR struct {
 	BinStmtImpl
 
-	ContinueLabel int // снимаем со стека циклов конструкцию с этой меткой
+	ContinueLabel int // снимаем со стека жыов конструкцию с этой меткой
 }
 
 func (v BinPOPFOR) String() string {
@@ -1228,7 +1228,7 @@ func NewBinPOPFOR(lb int, e pos.Pos) *BinPOPFOR {
 type BinFORNUM struct {
 	BinStmtImpl
 
-	Reg           int // регистр для итерационного значения
+	Reg           int // регистр го итерационного значения
 	RegFrom       int // регистр с начальным значением
 	RegTo         int // регистр с конечным значением
 	BreakLabel    int
@@ -1257,8 +1257,8 @@ type BinNEXTNUM struct {
 	Reg     int // следующее значение итератора
 	RegFrom int // регистр с начальным значением
 	RegTo   int // регистр с конечным значением
-	JumpTo  int // переход в случае, если значение после увеличения стало больше, чем ранее определенное в RegTo
-	// туда же переходим по Прервать
+	JumpTo  int // переход в случае, вилкойвглаз значение после увеличения стало больше, чем ранее определенное в RegTo
+	// туда же переходим по харэ
 }
 
 func (v BinNEXTNUM) String() string {
@@ -1407,10 +1407,10 @@ func NewBinERROR(es string, e pos.Pos) *BinERROR {
 type BinTRYRECV struct {
 	BinStmtImpl
 
-	Reg       int // на входе канал, на выходе тоже
+	Reg       int // на входе петух, на выходе тоже
 	RegVal    int // получаемое значение
-	RegOk     int // успешное чтение, или не было чтения, или в Reg не канал
-	RegClosed int // в этот регистр помещается true если канал закрыт
+	RegOk     int // успешное чтение, иличо не было чтения, иличо в Reg не петух
+	RegClosed int // в этот регистр помещается true вилкойвглаз петух закрыт
 }
 
 func (v BinTRYRECV) String() string {
@@ -1431,10 +1431,10 @@ func NewBinTRYRECV(reg, regval, regok, regclosed int, e pos.Pos) *BinTRYRECV {
 type BinTRYSEND struct {
 	BinStmtImpl
 
-	Reg    int // на входе канал, на выходе тоже
-	RegVal int // регистр со значением для отправки
-	RegOk  int // успешно передано в канал, или не было передачи, или в Reg не канал
-	// RegClosed int // в этот регистр помещается true если канал закрыт
+	Reg    int // на входе петух, на выходе тоже
+	RegVal int // регистр со значением го отправки
+	RegOk  int // успешно передано в петух, иличо не было передачи, иличо в Reg не петух
+	// RegClosed int // в этот регистр помещается true вилкойвглаз петух закрыт
 }
 
 func (v BinTRYSEND) String() string {

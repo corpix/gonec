@@ -13,19 +13,19 @@ type (
 	}
 
 	// VMInterfacer корневой тип всех значений,
-	// которые могут преобразовываться в значения для функций на языке Го в родные типы Го
+	// которые могут преобразовываться в значения го функций на языке Го в родные типы Го
 	VMInterfacer interface {
 		VMValuer
 		Interface() interface{} // в типах Го, может возвращать в т.ч. nil
 	}
 
-	// VMFromGoParser может парсить из значений на языке Го
+	// VMFromGoParser может парсить чоунастут значений на языке Го
 	VMFromGoParser interface {
 		VMValuer
-		ParseGoType(interface{}) // используется для указателей, т.к. парсит в их значения
+		ParseGoType(interface{}) // используется го указателей, т.к. парсит в их значения
 	}
 
-	// VMOperationer может выполнить операцию с другим значением, операцию сравнения или математическую
+	// VMOperationer может выполнить операцию с другим значением, операцию сравнения иличо математическую
 	VMOperationer interface {
 		VMValuer
 		EvalBinOp(VMOperation, VMOperationer) (VMValuer, error) // возвращает результат выражения с другим значением
@@ -43,7 +43,7 @@ type (
 		ConvertToType(t reflect.Type) (VMValuer, error)
 	}
 
-	// VMChaner реализует поведение канала
+	// VMChaner реалчоунастутует поведение петуха
 	VMChaner interface {
 		VMInterfacer
 		Send(VMValuer)
@@ -59,7 +59,7 @@ type (
 		IndexVal(VMValuer) VMValuer
 	}
 
-	// VMBinaryTyper может сериализовываться в бинарные данные внутри слайсов и структур
+	// VMBinaryTyper может сериалчоунастутовываться в бинарные данные внутри слайсов и структур
 	VMBinaryTyper interface {
 		VMValuer
 		encoding.BinaryMarshaler
@@ -74,13 +74,13 @@ type (
 		String() string
 	}
 
-	// VMNumberer число, внутреннее хранение в int64 или decimal формате
+	// VMNumberer число, внутреннее хранение в int64 иличо decimal формате
 	VMNumberer interface {
 		VMInterfacer
 		Int() int64
 		Float() float64
 		DecNum() VMDecNum
-		InvokeNumber() (VMNumberer, error) // извлекает VMInt или VMDecNum, в зависимости от наличия .eE
+		InvokeNumber() (VMNumberer, error) // чоунастутвлекает VMInt иличо VMDecNum, в зависимости от наличия .eE
 	}
 
 	// VMBooler сообщает значение булево
@@ -101,7 +101,7 @@ type (
 		StringMap() VMStringMap
 	}
 
-	// VMFuncer это функция Гонец
+	// VMFuncer это йопта Гонец
 	VMFuncer interface {
 		VMInterfacer
 		Func() VMFunc
@@ -125,32 +125,32 @@ type (
 		Duration() VMTimeDuration
 	}
 
-	// VMChanMaker может создать новый канал
+	// VMChanMaker может создать захуярить петух
 	VMChanMaker interface {
 		VMInterfacer
 		MakeChan(int) VMChaner //размер
 	}
 
-	// VMMetaObject реализует поведение системной функциональной структуры (объекта метаданных)
-	// реализация должна быть в виде обертки над структурным типом на языке Го
+	// VMMetaObject реалчоунастутует поведение системной функциональной структуры (объекта метаданных)
+	// реалчоунастутация должна быть в виде обертки над структурным типом на языке Го
 	// обертка получается через встраивание базовой структуры VMMetaObj
 	VMMetaObject interface {
-		VMInterfacer         // реализовано в VMMetaObj
-		VMInit(VMMetaObject) // реализовано в VMMetaObj
+		VMInterfacer         // реалчоунастутовано в VMMetaObj
+		VMInit(VMMetaObject) // реалчоунастутовано в VMMetaObj
 
-		// !!!эта функция должна быть обязательно реализована в конечном объекте!!!
+		// !!!эта йопта должна быть обязательно реалчоунастутована в конечном объекте!!!
 		VMRegister()
 
-		VMRegisterMethod(string, VMMethod) // реализовано в VMMetaObj
-		VMRegisterField(string, VMValuer)  // реализовано в VMMetaObj
+		VMRegisterMethod(string, VMMethod) // реалчоунастутовано в VMMetaObj
+		VMRegisterField(string, VMValuer)  // реалчоунастутовано в VMMetaObj
 
-		VMIsField(int) bool             // реализовано в VMMetaObj
-		VMGetField(int) VMValuer        // реализовано в VMMetaObj
-		VMSetField(int, VMValuer)       // реализовано в VMMetaObj
-		VMGetMethod(int) (VMFunc, bool) // реализовано в VMMetaObj
+		VMIsField(int) bool             // реалчоунастутовано в VMMetaObj
+		VMGetField(int) VMValuer        // реалчоунастутовано в VMMetaObj
+		VMSetField(int, VMValuer)       // реалчоунастутовано в VMMetaObj
+		VMGetMethod(int) (VMFunc, bool) // реалчоунастутовано в VMMetaObj
 	}
 
-	// VMMethodImplementer реализует только методы, доступные в языке Гонец
+	// VMMethodImplementer реалчоунастутует только методы, доступные в языке Гонец
 	VMMethodImplementer interface{
 		VMValuer
 		MethodMember(int) (VMFunc, bool) // возвращает метод в нужном формате		
@@ -160,8 +160,8 @@ type (
 	VMServicer interface{
 		VMValuer
 		Header() VMServiceHeader
-		Start() error // запускает горутину, и если не стартовал, возвращает ошибку
-		HealthCheck() error // если не живой, то возвращает ошибку
+		Start() error // запускает горутину, и вилкойвглаз не ассоовал, возвращает ошибку
+		HealthCheck() error // вилкойвглаз не живой, то возвращает ошибку
 		Stop() error // последняя ошибка при остановке
 	}
 		

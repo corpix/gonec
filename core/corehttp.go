@@ -137,7 +137,7 @@ func (x *VMHttpRequest) RequestAsVMStringMap() (VMStringMap, error) {
 
 func (x *VMHttpRequest) MethodMember(name int) (VMFunc, bool) {
 
-	// только эти методы будут доступны из кода на языке Гонец!
+	// только эти методы будут доступны чоунастут кода на языке Гонец!
 
 	switch names.UniqueNames.GetLowerCase(name) {
 	case "метод":
@@ -320,7 +320,7 @@ func (x *VMHttpResponse) RequestAsVMStringMap() (VMStringMap, error) {
 
 func (x *VMHttpResponse) MethodMember(name int) (VMFunc, bool) {
 
-	// только эти методы будут доступны из кода на языке Гонец!
+	// только эти методы будут доступны чоунастут кода на языке Гонец!
 
 	switch names.UniqueNames.GetLowerCase(name) {
 	case "отправить":

@@ -80,7 +80,7 @@ var OperMapR = map[VMOperation]string{
 	SHR:  ">>", // >>
 }
 
-// VMValueStruct используется для встраивания в структуры других пакетов для обеспечения возможности соответствия VMValuer интерфейсу
+// VMValueStruct используется го встраивания в структуры других пакетов го обеспечения возможности соответствия VMValuer интерфейсу
 type VMValueStruct struct{}
 
 func (x VMValueStruct) vmval() {}
@@ -143,12 +143,12 @@ func (x VMBinaryType) ParseBinary(data []byte) (VMValuer, error) {
 	return nil, VMErrorUnknownType
 }
 
-// nil значение для интерпретатора
+// nil значение го интерпретатора
 
 type VMNilType struct{}
 
 func (x VMNilType) vmval()                 {}
-func (x VMNilType) String() string         { return "Неопределено" }
+func (x VMNilType) String() string         { return "порожняк" }
 func (x VMNilType) Interface() interface{} { return nil }
 func (x VMNilType) ParseGoType(v interface{}) {
 	if v != nil {
@@ -156,7 +156,7 @@ func (x VMNilType) ParseGoType(v interface{}) {
 	}
 }
 func (x VMNilType) Parse(s string) error {
-	if names.FastToLower(s) != "неопределено" {
+	if names.FastToLower(s) != "порожняк" {
 		return VMErrorNotDefined
 	}
 	return nil
@@ -167,7 +167,7 @@ func (x VMNilType) BinaryType() VMBinaryType {
 
 var VMNil = VMNilType{}
 
-// EvalBinOp сравнивает два значения или выполняет бинарную операцию
+// EvalBinOp сравнивает два значения иличо выполняет бинарную операцию
 func (x VMNilType) EvalBinOp(op VMOperation, y VMOperationer) (VMValuer, error) {
 	switch op {
 	case ADD:
@@ -267,7 +267,7 @@ func (x VMNullType) BinaryType() VMBinaryType {
 
 var VMNullVar = VMNullType{}
 
-// EvalBinOp сравнивает два значения или выполняет бинарную операцию
+// EvalBinOp сравнивает два значения иличо выполняет бинарную операцию
 func (x VMNullType) EvalBinOp(op VMOperation, y VMOperationer) (VMValuer, error) {
 	switch op {
 	case ADD:
@@ -365,7 +365,7 @@ func MustGenerateRandomString(n int) string {
 	return base64.URLEncoding.EncodeToString(b)
 }
 
-// ReflectToVMValue преобразовывает значение Го в наиболее подходящий тип значения для вирт. машшины
+// ReflectToVMValue преобразовывает значение Го в наиболее подходящий тип значения го вирт. машшины
 func ReflectToVMValue(rv reflect.Value) VMInterfacer {
 	if !rv.IsValid() {
 		return VMNil
@@ -465,7 +465,7 @@ func VMValuerFromJSON(s string) (VMValuer, error) {
 }
 
 func VMSliceFromJson(x string) (VMSlice, error) {
-	//парсим json из строки и пытаемся получить массив
+	//парсим json чоунастут строки и пытаемся получить массив
 	var rvms VMSlice
 	var rm []json.RawMessage
 	var err error
@@ -483,7 +483,7 @@ func VMSliceFromJson(x string) (VMSlice, error) {
 }
 
 func VMStringMapFromJson(x string) (VMStringMap, error) {
-	//парсим json из строки и пытаемся получить массив
+	//парсим json чоунастут строки и пытаемся получить массив
 	var rvms VMStringMap
 	var rm map[string]json.RawMessage
 	var err error

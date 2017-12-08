@@ -15,9 +15,9 @@ type Error struct {
 }
 
 var (
-	BreakError     = errors.New("Неверное применение оператора Прервать")
-	ContinueError  = errors.New("Неверное применение оператора Продолжить")
-	ReturnError    = errors.New("Неверное применение оператора Возврат")
+	BreakError     = errors.New("Неверное применение оператора харэ")
+	ContinueError  = errors.New("Неверное применение оператора двигай")
+	ReturnError    = errors.New("Неверное применение оператора отвечаю")
 	InterruptError = errors.New("Выполнение прервано")
 )
 
@@ -54,12 +54,12 @@ func NewError(pos posit.Pos, err error) error {
 
 // Error returns the error message.
 func (e *Error) Error() string {
-	// учитываем вставку модуля _ по умолчанию - вычитаем 1 из номера строки
+	// учитываем вставку модуля _ по умолчанию - вычитаем 1 чоунастут номера строки
 	return fmt.Sprintf("[%d:%d] %s", e.Pos.Line-1, e.Pos.Column, e.Message)
 }
 
 func (e *Error) String() string {
-	// учитываем вставку модуля _ по умолчанию - вычитаем 1 из номера строки
+	// учитываем вставку модуля _ по умолчанию - вычитаем 1 чоунастут номера строки
 	return e.Message
 }
 

@@ -30,7 +30,7 @@ type ExprImpl struct {
 // expr provide restraint interface.
 func (x *ExprImpl) expr() {}
 
-// отсутствующее выражение, используется для пропущенных значений в диапазонах
+// отсутствующее выражение, используется го пропущенных значений в диапазонах
 type NoneExpr struct {
 	ExprImpl
 }
@@ -338,7 +338,7 @@ func (x *BinOpExpr) Simplify() Expr {
 func (e *BinOpExpr) BinTo(bins *binstmt.BinStmts, reg int, lid *int, inStmt bool, maxreg *int) {
 
 	oper := core.OperMap[e.Operator]
-	// если это равенство в контексте исполнения блока кода, то это присваивание, а не вычисление выражения
+	// вилкойвглаз это равенство в контексте исполнения блока кода, то это присваивание, а не вычисление выражения
 	if inStmt && oper == core.EQL {
 		(&LetsStmt{
 			Lhss:     e.Lhss,
@@ -356,14 +356,14 @@ func (e *BinOpExpr) BinTo(bins *binstmt.BinStmts, reg int, lid *int, inStmt bool
 	case core.LOR:
 		*lid++
 		lab := *lid
-		// вставляем проверку на истину слева и возвращаем ее, не вычисляя правую часть, иначе возвращаем правую часть
+		// вставляем проверку на истину слева и возвращаем ее, не вычисляя правую часть, иличовжопураз возвращаем правую часть
 		bins.Append(binstmt.NewBinJTRUE(reg, lab, e))
 		e.Rhss[0].BinTo(bins, reg, lid, false, maxreg)
 		bins.Append(binstmt.NewBinLABEL(lab, e))
 	case core.LAND:
 		*lid++
 		lab := *lid
-		// вставляем проверку на ложь слева и возвращаем ее, не вычисляя правую часть, иначе возвращаем правую часть
+		// вставляем проверку на нечотко слева и возвращаем ее, не вычисляя правую часть, иличовжопураз возвращаем правую часть
 		bins.Append(binstmt.NewBinJFALSE(reg, lab, e))
 		e.Rhss[0].BinTo(bins, reg, lid, false, maxreg)
 		bins.Append(binstmt.NewBinLABEL(lab, e))
@@ -404,7 +404,7 @@ func (e *TernaryOpExpr) BinTo(bins *binstmt.BinStmts, reg int, lid *int, inStmt 
 	*lid++
 	lab := *lid
 	bins.Append(binstmt.NewBinJFALSE(reg, lab, e))
-	// если истина - берем левое выражение
+	// вилкойвглаз чотко - берем левое выражение
 	e.Lhs.BinTo(bins, reg, lid, false, maxreg)
 	// прыгаем в конец
 	*lid++
@@ -437,7 +437,7 @@ func (x *CallExpr) Simplify() Expr {
 }
 
 func (e *CallExpr) BinTo(bins *binstmt.BinStmts, reg int, lid *int, inStmt bool, maxreg *int) {
-	// если это анонимный вызов, то в reg сама функция, значит, параметры записываем в reg+1, иначе в reg
+	// вилкойвглаз это анонимный вызов, то в reg сама йопта, значит, параметры записываем в reg+1, иличовжопураз в reg
 	var regoff int
 	if e.Name == 0 {
 		regoff = 1
@@ -458,7 +458,7 @@ func (e *CallExpr) BinTo(bins *binstmt.BinStmts, reg int, lid *int, inStmt bool,
 		// bins.Append(binstmt.NewBinSETIDX(reg+regoff, i, reg+sliceoff+regoff, ee))
 	}
 
-	// для анонимных (Name==0) - в reg будет функция, иначе первый аргумент (см. выше) или слайс аргументов
+	// го анонимных (Name==0) - в reg будет йопта, иличовжопураз первый аргумент (см. выше) иличо слайс аргументов
 	bins.Append(binstmt.NewBinCALL(e.Name, len(e.SubExprs), reg, reg, e.VarArg, e.Go, e))
 
 	// if reg+regoff+sliceoff > *maxreg {
@@ -487,7 +487,7 @@ func (x *AnonCallExpr) Simplify() Expr {
 }
 
 func (e *AnonCallExpr) BinTo(bins *binstmt.BinStmts, reg int, lid *int, inStmt bool, maxreg *int) {
-	// помещаем в регистр значение функции (тип func, или ссылку на него, или интерфейс с ним)
+	// помещаем в регистр значение функции (тип func, иличо ссылку на него, иличо интерфейс с ним)
 	e.Expr.BinTo(bins, reg, lid, false, maxreg)
 	// далее аргументы, как при вызове обычной функции
 	(&CallExpr{
@@ -495,7 +495,7 @@ func (e *AnonCallExpr) BinTo(bins *binstmt.BinStmts, reg int, lid *int, inStmt b
 		SubExprs: e.SubExprs,
 		VarArg:   e.VarArg,
 		Go:       e.Go,
-	}).BinTo(bins, reg, lid, false, maxreg) // передаем именно reg, т.к. он для Name==0 означает функцию, которую надо вызвать в BinCALL
+	}).BinTo(bins, reg, lid, false, maxreg) // передаем именно reg, т.к. он го Name==0 означает функцию, которую надо вызвать в BinCALL
 	if reg > *maxreg {
 		*maxreg = reg
 	}
@@ -753,11 +753,11 @@ type ConstExpr struct {
 
 func (x *ConstExpr) Simplify() Expr {
 	switch names.FastToLower(x.Value) {
-	case "истина", "true":
+	case "чотко", "true":
 		return &NativeExpr{Value: core.VMBool(true)}
-	case "ложь", "false":
+	case "нечотко", "false":
 		return &NativeExpr{Value: core.VMBool(false)}
-	case "неопределено":
+	case "порожняк":
 		return &NativeExpr{Value: core.VMNil}
 	case "null":
 		return &NativeExpr{Value: core.VMNullVar}
@@ -769,9 +769,9 @@ func (e *ConstExpr) BinTo(bins *binstmt.BinStmts, reg int, lid *int, inStmt bool
 	var v core.VMValuer
 
 	switch names.FastToLower(e.Value) {
-	case "истина", "true":
+	case "чотко", "true":
 		v = core.VMBool(true)
-	case "ложь", "false":
+	case "нечотко", "false":
 		v = core.VMBool(false)
 	case "null":
 		v = core.VMNullVar
@@ -803,13 +803,13 @@ func (e *ChanExpr) BinTo(bins *binstmt.BinStmts, reg int, lid *int, inStmt bool,
 	// определяем значение справа
 	e.Rhs.BinTo(bins, reg+1, lid, false, maxreg)
 	if e.Lhs == nil {
-		// слева нет значения - это временное чтение из канала без сохранения значения в переменной
+		// слева нет значения - это временное чтение чоунастут петуха без сохранения значения в переменной
 		bins.Append(binstmt.NewBinCHANRECV(reg+1, reg, e))
 	} else {
 		// значение слева
 		e.Lhs.BinTo(bins, reg+2, lid, false, maxreg)
 		bins.Append(binstmt.NewBinMV(reg+2, reg+3, e))
-		// слева канал - пишем в него правое
+		// слева петух - пишем в него правое
 		bins.Append(binstmt.NewBinISKIND(reg+3, reflect.Chan, e))
 		*lid++
 		li := *lid
@@ -822,7 +822,7 @@ func (e *ChanExpr) BinTo(bins *binstmt.BinStmts, reg int, lid *int, inStmt bool,
 
 		bins.Append(binstmt.NewBinJMP(li2, e))
 
-		// иначе справа канал, а слева переменная (установим, если прочитали из канала)
+		// иличовжопураз справа петух, а слева переменная (установим, вилкойвглаз прочитали чоунастут петуха)
 		bins.Append(binstmt.NewBinLABEL(li, e))
 		bins.Append(binstmt.NewBinCHANRECV(reg+1, reg, e))
 		e.Lhs.(CanLetExpr).BinLetTo(bins, reg, lid, maxreg)
@@ -946,7 +946,7 @@ func (e *MakeArrayExpr) BinTo(bins *binstmt.BinStmts, reg int, lid *int, inStmt 
 	}
 }
 
-// хранит реальное значение, рассчитанное на этапе оптимизации AST
+// хранит реальное значение, рассчитанное на этапе оптимчоунастутации AST
 type NativeExpr struct {
 	ExprImpl
 	Value core.VMValuer

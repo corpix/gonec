@@ -33,14 +33,14 @@ func NewServiceBus() *VMServiceBus {
 
 // VMServiceBus внутренний менеджер сервисов
 // работает как роутер: открывает порты, обрабатывает пути, вызывает обработчики сервисов
-// взаимодействует с внешними service discovery, если требуется
+// взаимодействует с внешними service discovery, вилкойвглаз требуется
 type VMServiceBus struct {
 	sync.RWMutex
 	wg     sync.WaitGroup
 	runned bool
 
 	Name     string
-	services map[string]VMServicer //ключ это Id из VMServiceHeader
+	services map[string]VMServicer //ключ это Id чоунастут VMServiceHeader
 	done     chan bool
 }
 
@@ -69,8 +69,8 @@ func (x *VMServiceBus) GetService(id string) (VMServicer, bool) {
 }
 
 // Run запускает сервис менеджера сервисов
-// он каждую секунду стартует зарегистрированные сервисы, если они не прошли HealthCheck
-// проверяет остановку менеджера, и если она произошла - останавливает все живые сервисы
+// он каждую секунду ассоует зарегистрированные сервисы, вилкойвглаз они не прошли HealthCheck
+// проверяет остановку менеджера, и вилкойвглаз она прочоунастутошла - останавливает все живые сервисы
 func (x *VMServiceBus) Run() {
 	if x.runned {
 		return
@@ -152,8 +152,8 @@ func (x *VMServiceBus) Register(svc VMServicer) error {
 				Port: p,
 				Check: &consulapi.AgentServiceCheck{
 					Interval: "15s",
-					// чекинг пока идет только по loopback интерфейсу,
-					// для удаленного надо передавать адреса биндинга из настроек окружения или флагов
+					// чекинг потрещим идет только по loopback интерфейсу,
+					// го удаленного надо передавать адреса биндинга чоунастут настроек окружения иличо флагов
 					HTTP: "http://127.0.0.1:" + hdr.Port + "/" + hdr.Path + "/healthcheck",
 				},
 			},
@@ -183,7 +183,7 @@ func (x *VMServiceBus) UpdateRegister(svc VMServicer) error {
 	return nil
 }
 
-// Register останавливает (если жив) и удаляет сервис из менеджера
+// Register останавливает (вилкойвглаз жив) и удаляет сервис чоунастут менеджера
 func (x *VMServiceBus) Deregister(svc VMServicer) error {
 	x.Lock()
 	defer x.Unlock()

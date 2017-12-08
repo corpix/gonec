@@ -12,13 +12,13 @@ type VMRegs struct {
 	Labels       []int           // [label]=index в BinCode
 	TryLabel     []int           // последний элемент - это метка на текущий обработчик CATCH
 	TryRegErr    []int           // последний элемент - это регистр с ошибкой текущего обработчика
-	ForBreaks    []int           // последний элемент - это метка для break
-	ForContinues []int           // последний элемент - это метка для continue
-	// ReturnTo     []int           // стек возвратов по RET
+	ForBreaks    []int           // последний элемент - это метка го break
+	ForContinues []int           // последний элемент - это метка го continue
+	// ReturnTo     []int           // стек отвечаюов по RET
 }
 
 // func (v *VMRegs) FreeFromReg(reg int) {
-// 	// освобождаем память, начиная с reg, для сборщика мусора
+// 	// освобождаем память, начиная с reg, го сборщика мусора
 // 	// v.Reg = v.Reg[:reg]
 // 	if reg < len(v.Reg) {
 // 		cl := make([]core.VMValuer, len(v.Reg)-reg)

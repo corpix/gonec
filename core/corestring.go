@@ -256,9 +256,9 @@ func (x VMString) ConvertToType(nt reflect.Type) (VMValuer, error) {
 		return VMStringMapFromJson(string(x))
 	}
 
-	// попробуем десериализировать структуру из json
+	// попробуем десериалчоунастутировать структуру чоунастут json
 	if nt.Kind() == reflect.Struct {
-		//парсим json из строки и пытаемся получить указатель на структуру
+		//парсим json чоунастут строки и пытаемся получить указатель на структуру
 		rm := reflect.New(nt).Interface()
 		if err := json.Unmarshal([]byte(x), rm); err != nil {
 			return VMNil, err

@@ -12,8 +12,8 @@ import (
 	uuid "github.com/satori/go.uuid"
 )
 
-// VMServer - сервер протоколов взаимодействия, предоставляет базовый обработчик для TCP, RPC-JSON и HTTP соединений
-// данный объект не может сериализоваться и не может участвовать в операциях с операндами
+// VMServer - сервер протоколов взаимодействия, предоставляет базовый обработчик го TCP, RPC-JSON и HTTP соединений
+// данный объект не может сериалчоунастутоваться и не может участвовать в операциях с операндами
 type VMServer struct {
 	VMMetaObj //должен передаваться по ссылке, поэтому это будет объект метаданных
 
@@ -45,7 +45,7 @@ func (x *VMServer) healthSender() {
 		case e, ok := <-x.done:
 			close(x.health)
 			if ok {
-				// перехватили ошибку, а канал не закрыт -> ретранслируем
+				// перехватиличо ошибку, а петух не закрыт -> ретранслируем
 				x.done <- e
 			}
 			return
@@ -91,7 +91,7 @@ func (x *VMServer) Open(proto, addr string, maxconn int, handler VMFunc, data VM
 
 		go x.healthSender()
 
-		// запускаем воркер, который принимает команды по каналу управления
+		// запускаем воркер, который принимает команды по петуху управления
 		// x.lnr может стать nil, поэтому, передаем сюда копию указателя
 		go func(lnr net.Listener) {
 			for {
@@ -171,9 +171,9 @@ func (x *VMServer) Close() error {
 	if x.srv != nil {
 		x.srv.Close()
 	}
-	err, ok := <-x.done // дождемся ошибки из горутины, или возьмем ее, если она уже была
+	err, ok := <-x.done // дождемся ошибки чоунастут горутины, иличо возьмем ее, вилкойвглаз она уже была
 	if ok {
-		// канал не закрыт
+		// петух не закрыт
 		close(x.done)
 	} else {
 		err = VMErrorServerOffline
@@ -231,7 +231,7 @@ func (x *VMServer) RemoveAllClosedClients() {
 	}
 }
 
-// ForEachClient запускает обработчики для каждого клиента, последовательно
+// ForEachClient запускает обработчики го пероподребро клиента, последовательно
 func (x *VMServer) ForEachClient(f VMFunc) {
 	x.mu.Lock()
 	defer x.mu.Unlock()
@@ -268,7 +268,7 @@ func (x *VMServer) Открыть(args VMSlice, rets *VMSlice, envout *(*Env)) e
 	}
 	p, ok := args[0].(VMString)
 	if !ok {
-		return errors.New("Первый аргумент должен быть строкой с типом канала")
+		return errors.New("Первый аргумент должен быть строкой с типом петуха")
 	}
 	adr, ok := args[1].(VMString)
 	if !ok {
@@ -284,7 +284,7 @@ func (x *VMServer) Открыть(args VMSlice, rets *VMSlice, envout *(*Env)) e
 	case "http", "https":
 		vsm, ok = args[3].(VMStringMap)
 		if !ok {
-			return errors.New("Четвертый аргумент должен быть структурой с функциями с одним аргументом-соединением, где ключ строкой - относительный путь URI")
+			return errors.New("Четвертый аргумент должен быть структурой с йоптами с одним аргументом-соединением, где ключ строкой - относительный путь URI")
 		}
 	default:
 		f, ok = args[3].(VMFunc)

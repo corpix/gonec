@@ -372,17 +372,17 @@ expr :
 	}
 	| TRUE
 	{
-		$$ = &ast.ConstExpr{Value: "истина"}
+		$$ = &ast.ConstExpr{Value: "чотко"}
 		$$.SetPosition($1.Position())
 	}
 	| FALSE
 	{
-		$$ = &ast.ConstExpr{Value: "ложь"}
+		$$ = &ast.ConstExpr{Value: "нечотко"}
 		$$.SetPosition($1.Position())
 	}
 	| NIL
 	{
-		$$ = &ast.ConstExpr{Value: "неопределено"}
+		$$ = &ast.ConstExpr{Value: "порожняк"}
 		$$.SetPosition($1.Position())
 	}
 	| NULL
@@ -402,12 +402,12 @@ expr :
 	}
 	| FUNC '(' expr_idents ')' opt_terms compstmt '}'
 	{
-		$$ = &ast.FuncExpr{Name:names.UniqueNames.Set("<анонимная функция>"), Args: $3, Stmts: $6}
+		$$ = &ast.FuncExpr{Name:names.UniqueNames.Set("<анонимная йопта>"), Args: $3, Stmts: $6}
 		$$.SetPosition($1.Position())
 	}
 	| FUNC '(' IDENT VARARG ')' opt_terms compstmt '}'
 	{
-		$$ = &ast.FuncExpr{Name:names.UniqueNames.Set("<анонимная функция>"), Args: []int{names.UniqueNames.Set($3.Lit)}, Stmts: $7, VarArg: true}
+		$$ = &ast.FuncExpr{Name:names.UniqueNames.Set("<анонимная йопта>"), Args: []int{names.UniqueNames.Set($3.Lit)}, Stmts: $7, VarArg: true}
 		$$.SetPosition($1.Position())
 	}
 	| FUNC IDENT '(' expr_idents ')' opt_terms compstmt '}'

@@ -31,7 +31,7 @@ func LoadAllBuiltins(env *Env) {
 		}
 		if s, ok := args[0].(VMString); ok {
 			if loader, ok := pkgs[strings.ToLower(string(s))]; ok {
-				rets.Append(loader(env)) // возвращает окружение, инициализированное пакетом
+				rets.Append(loader(env)) // возвращает окружение, инициалчоунастутированное пакетом
 				return nil
 			}
 			return fmt.Errorf("Пакет '%s' не найден", s)
@@ -44,7 +44,7 @@ func LoadAllBuiltins(env *Env) {
 	env.SetBuiltsIsLoaded()
 }
 
-// Import общая стандартная бибилиотека
+// Import общая стандартная бибиличоотека
 func Import(env *Env) *Env {
 
 	env.DefineS("длина", VMFuncMustParams(1, func(args VMSlice, rets *VMSlice, envout *(*Env)) error {
@@ -145,7 +145,7 @@ func Import(env *Env) *Env {
 		return nil
 	}))
 
-	env.DefineS("получитьмассивизпула", VMFuncMustParams(0, func(args VMSlice, rets *VMSlice, envout *(*Env)) error {
+	env.DefineS("получитьмассивчоунастутпула", VMFuncMustParams(0, func(args VMSlice, rets *VMSlice, envout *(*Env)) error {
 		*envout = env
 		rets.Append(GetGlobalVMSlice())
 		return nil
@@ -310,7 +310,7 @@ func Import(env *Env) *Env {
 	env.DefineS("типзнч", VMFuncMustParams(1, func(args VMSlice, rets *VMSlice, envout *(*Env)) error {
 		*envout = env
 		if args[0] == nil || args[0] == VMNil {
-			rets.Append(VMString("Неопределено"))
+			rets.Append(VMString("порожняк"))
 			return nil
 		}
 		rets.Append(VMString(names.UniqueNames.Get(env.TypeName(reflect.TypeOf(args[0])))))
@@ -359,7 +359,7 @@ func Import(env *Env) *Env {
 		return VMErrorNeedSeconds
 	}))
 
-	// при изменении состава типов не забывать изменять их и в lexer.go
+	// при чоунастутменении состава типов не забывать чоунастутменять их и в lexer.go
 	env.DefineTypeS("целоечисло", ReflectVMInt)
 	env.DefineTypeS("число", ReflectVMDecNum)
 	env.DefineTypeS("булево", ReflectVMBool)
@@ -389,7 +389,7 @@ func Import(env *Env) *Env {
 }
 
 /////////////////
-// TttStructTest - тестовая структура для отладки работы с системными функциональными структурами
+// TttStructTest - тестовая структура го отладки работы с системными функциональными структурами
 type TttStructTest struct {
 	VMMetaObj
 
@@ -403,7 +403,7 @@ func (tst *TttStructTest) VMRegister() {
 	tst.VMRegisterField("ПолеСтрока", &tst.ПолеСтрока)
 }
 
-// обратите внимание - русскоязычное название метода для структуры и формат для быстрого вызова
+// обратите внимание - русскоязычное название метода го структуры и формат го быстрого вызова
 func (tst *TttStructTest) ВСтроку(args VMSlice, rets *VMSlice, envout *(*Env)) error {
 	rets.Append(VMString(fmt.Sprintf("ПолеЦелоеЧисло=%v, ПолеСтрока=%v", tst.ПолеЦелоеЧисло, tst.ПолеСтрока)))
 	return nil

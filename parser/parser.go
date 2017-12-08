@@ -1603,21 +1603,21 @@ yydefault:
 		yyDollar = yyS[yypt-1 : yypt+1]
 		//line ./parser/parser.y:374
 		{
-			yyVAL.expr = &ast.ConstExpr{Value: "истина"}
+			yyVAL.expr = &ast.ConstExpr{Value: "чотко"}
 			yyVAL.expr.SetPosition(yyDollar[1].tok.Position())
 		}
 	case 61:
 		yyDollar = yyS[yypt-1 : yypt+1]
 		//line ./parser/parser.y:379
 		{
-			yyVAL.expr = &ast.ConstExpr{Value: "ложь"}
+			yyVAL.expr = &ast.ConstExpr{Value: "нечотко"}
 			yyVAL.expr.SetPosition(yyDollar[1].tok.Position())
 		}
 	case 62:
 		yyDollar = yyS[yypt-1 : yypt+1]
 		//line ./parser/parser.y:384
 		{
-			yyVAL.expr = &ast.ConstExpr{Value: "неопределено"}
+			yyVAL.expr = &ast.ConstExpr{Value: "порожняк"}
 			yyVAL.expr.SetPosition(yyDollar[1].tok.Position())
 		}
 	case 63:
@@ -1645,14 +1645,14 @@ yydefault:
 		yyDollar = yyS[yypt-7 : yypt+1]
 		//line ./parser/parser.y:404
 		{
-			yyVAL.expr = &ast.FuncExpr{Name: names.UniqueNames.Set("<анонимная функция>"), Args: yyDollar[3].expr_idents, Stmts: yyDollar[6].compstmt}
+			yyVAL.expr = &ast.FuncExpr{Name: names.UniqueNames.Set("<анонимная йопта>"), Args: yyDollar[3].expr_idents, Stmts: yyDollar[6].compstmt}
 			yyVAL.expr.SetPosition(yyDollar[1].tok.Position())
 		}
 	case 67:
 		yyDollar = yyS[yypt-8 : yypt+1]
 		//line ./parser/parser.y:409
 		{
-			yyVAL.expr = &ast.FuncExpr{Name: names.UniqueNames.Set("<анонимная функция>"), Args: []int{names.UniqueNames.Set(yyDollar[3].tok.Lit)}, Stmts: yyDollar[7].compstmt, VarArg: true}
+			yyVAL.expr = &ast.FuncExpr{Name: names.UniqueNames.Set("<анонимная йопта>"), Args: []int{names.UniqueNames.Set(yyDollar[3].tok.Lit)}, Stmts: yyDollar[7].compstmt, VarArg: true}
 			yyVAL.expr.SetPosition(yyDollar[1].tok.Position())
 		}
 	case 68:

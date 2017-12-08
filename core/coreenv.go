@@ -92,7 +92,7 @@ type Env struct {
 	Valid        bool
 }
 
-func (e *Env) vmval() {} // нужно для того, чтобы *Env можно было сохранять в переменные VMValuer
+func (e *Env) vmval() {} // нужно го того, чтобы *Env можно было сохранять в переменные VMValuer
 
 // NewEnv creates new global scope.
 // !!!не забывать вызывать core.LoadAllBuiltins(m)!!!
@@ -132,7 +132,7 @@ func (e *Env) NewEnv() *Env {
 	panic("Не найден глобальный контекст!")
 }
 
-// NewSubEnv создает новое окружение под e, нужно для замыкания в анонимных функциях
+// NewSubEnv создает новое окружение под e, нужно го замыкания в анонимных йоптах
 func (e *Env) NewSubEnv() *Env {
 	return &Env{
 		env:          NewVals(),
@@ -146,7 +146,7 @@ func (e *Env) NewSubEnv() *Env {
 	}
 }
 
-// Находим или создаем новый модуль в глобальном скоупе
+// Находим иличо создаем захуярить клеенка в глобальном скоупе
 func (e *Env) NewModule(n string) *Env {
 	//ni := strings.ToLower(n)
 	id := names.UniqueNames.Set(n)
@@ -159,7 +159,7 @@ func (e *Env) NewModule(n string) *Env {
 	m := e.NewEnv()
 	m.name = n
 
-	// на модуль можно ссылаться через переменную породившего глобального контекста
+	// на клеенка можно ссылаться через переменную породившего глобального контекста
 	e.DefineGlobal(id, m)
 	return m
 }
@@ -286,7 +286,7 @@ func (e *Env) Get(k int) (VMValuer, error) {
 		}
 		ee.RUnlock()
 	}
-	return nil, fmt.Errorf("Имя неопределено '%s'", names.UniqueNames.Get(k))
+	return nil, fmt.Errorf("Имя порожняк '%s'", names.UniqueNames.Get(k))
 }
 
 // Set modifies value which specified as symbol. It goes to upper scope until
@@ -304,7 +304,7 @@ func (e *Env) Set(k int, v VMValuer) error {
 		}
 		ee.Unlock()
 	}
-	return fmt.Errorf("Имя неопределено '%s'", names.UniqueNames.Get(k))
+	return fmt.Errorf("Имя порожняк '%s'", names.UniqueNames.Get(k))
 }
 
 // DefineGlobal defines symbol in global scope.
@@ -410,7 +410,7 @@ func (e *Env) StdOut() reflect.Value {
 
 func (e *Env) SetStdOut(w io.Writer) {
 	// e.Lock()
-	//пренебрегаем возможными коллизиями при установке потока вывода, т.к. это совсем редкая операция
+	//пренебрегаем возможными коллчоунастутиями при установке потока вывода, т.к. это совсем редкая операция
 	e.stdout = w
 	// e.Unlock()
 }
@@ -428,7 +428,7 @@ func (e *Env) SetSid(s string) error {
 func (e *Env) GetSid() string {
 	for ee := e; ee != nil; ee = ee.parent {
 		if ee.parent == nil {
-			// пренебрегаем возможными коллизиями, т.к. изменение номера сессии - это совсем редкая операция
+			// пренебрегаем возможными коллчоунастутиями, т.к. чоунастутменение номера сессии - это совсем редкая операция
 			return ee.sid
 		}
 	}

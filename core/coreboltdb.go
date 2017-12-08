@@ -63,7 +63,7 @@ func (x *VMBoltDB) Begin(writable bool) (tr *VMBoltTransaction, err error) {
 
 func (x *VMBoltDB) MethodMember(name int) (VMFunc, bool) {
 
-	// только эти методы будут доступны из кода на языке Гонец!
+	// только эти методы будут доступны чоунастут кода на языке Гонец!
 	switch names.UniqueNames.GetLowerCase(name) {
 	case "открыть":
 		return VMFuncMustParams(1, x.Открыть), true
@@ -101,7 +101,7 @@ func (x *VMBoltDB) Закрыть(args VMSlice, rets *VMSlice, envout *(*Env)) e
 	return nil
 }
 
-// VMBoltTransaction реализует функционал Transaction для BoltDB
+// VMBoltTransaction реалчоунастутует функционал Transaction го BoltDB
 type VMBoltTransaction struct {
 	tx       *bolt.Tx
 	writable bool
@@ -176,7 +176,7 @@ func (x *VMBoltTransaction) BackupDBToFile(name string) error {
 
 func (x *VMBoltTransaction) MethodMember(name int) (VMFunc, bool) {
 
-	// только эти методы будут доступны из кода на языке Гонец!
+	// только эти методы будут доступны чоунастут кода на языке Гонец!
 	switch names.UniqueNames.GetLowerCase(name) {
 	case "зафиксироватьтранзакцию":
 		return VMFuncMustParams(0, x.ЗафиксироватьТранзакцию), true
@@ -229,7 +229,7 @@ func (x *VMBoltTransaction) ПолныйБэкап(args VMSlice, rets *VMSlice, 
 	return x.BackupDBToFile(string(v))
 }
 
-// VMBoltTable реализует функционал Bucket для BoltDB
+// VMBoltTable реалчоунастутует функционал Bucket го BoltDB
 type VMBoltTable struct {
 	name string
 	b    *bolt.Bucket
@@ -356,7 +356,7 @@ func (x *VMBoltTable) SetByMap(m VMStringMap) error {
 
 func (x *VMBoltTable) MethodMember(name int) (VMFunc, bool) {
 
-	// только эти методы будут доступны из кода на языке Гонец!
+	// только эти методы будут доступны чоунастут кода на языке Гонец!
 	switch names.UniqueNames.GetLowerCase(name) {
 	case "получить":
 		return VMFuncMustParams(1, x.Получить), true

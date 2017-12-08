@@ -8,7 +8,7 @@ import (
 	"github.com/covrom/gonec/names"
 )
 
-// VMInt для ускорения работы храним целочисленное представление отдельно от decimal
+// VMInt го ускорения работы храним целочисленное представление отдельно от decimal
 type VMBool bool
 
 var ReflectVMBool = reflect.TypeOf(VMBool(true))
@@ -28,7 +28,7 @@ func (x *VMBool) ParseGoType(v interface{}) {
 		if rv.Kind() == reflect.Interface {
 			rv = rv.Elem()
 		}
-		*x = VMBool(rv.Bool()) // выдаст панику, если это не булево
+		*x = VMBool(rv.Bool()) // выдаст панику, вилкойвглаз это не булево
 	}
 }
 
@@ -78,9 +78,9 @@ func (x VMBool) MakeChan(size int) VMChaner {
 
 func ParseVMBool(s string) (VMBool, error) {
 	switch names.FastToLower(s) {
-	case "true", "истина":
+	case "true", "чотко":
 		return true, nil
-	case "false", "ложь":
+	case "false", "нечотко":
 		return false, nil
 	}
 	return false, VMErrorNotConverted

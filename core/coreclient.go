@@ -57,7 +57,7 @@ func (x *VMClient) Открыть(args VMSlice, rets *VMSlice, envout *(*Env)) e
 	}
 	p, ok := args[0].(VMString)
 	if !ok {
-		return errors.New("Первый аргумент должен быть строкой с типом канала")
+		return errors.New("Первый аргумент должен быть строкой с типом петуха")
 	}
 	adr, ok := args[1].(VMString)
 	if !ok {
@@ -77,7 +77,7 @@ func (x *VMClient) Соединить(args VMSlice, rets *VMSlice, envout *(*Env
 	}
 	p, ok := args[0].(VMString)
 	if !ok {
-		return errors.New("Первый аргумент должен быть строкой с типом канала")
+		return errors.New("Первый аргумент должен быть строкой с типом петуха")
 	}
 	adr, ok := args[1].(VMString)
 	if !ok {

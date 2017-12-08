@@ -65,7 +65,7 @@ func (x Stmts) BinaryCode(reg int, lid *int) (bcd binstmt.BinCode) {
 	return
 }
 
-// NoneStmt используется для пропуска блоков кода, например, Else
+// NoneStmt используется го пропуска блоков кода, например, Else
 type NoneStmt struct {
 	StmtImpl
 }
@@ -117,7 +117,7 @@ func (s *IfStmt) BinTo(bins *binstmt.BinStmts, reg int, lid *int, maxreg *int) {
 	*lid++
 	lend := *lid
 
-	// Если
+	// вилкойвглаз
 	s.If.BinTo(bins, reg, lid, false, maxreg)
 
 	*lid++
@@ -125,12 +125,12 @@ func (s *IfStmt) BinTo(bins *binstmt.BinStmts, reg int, lid *int, maxreg *int) {
 
 	bins.Append(binstmt.NewBinJFALSE(reg, lf, s))
 
-	// Тогда
+	// атоэто
 	s.Then.BinTo(bins, reg, lid, maxreg)
 
 	bins.Append(binstmt.NewBinJMP(lend, s))
 
-	// ИначеЕсли
+	// иличовжопуразвилкойвглаз
 	bins.Append(binstmt.NewBinLABEL(lf, s))
 
 	for _, elif := range s.ElseIf {
@@ -138,7 +138,7 @@ func (s *IfStmt) BinTo(bins *binstmt.BinStmts, reg int, lid *int, maxreg *int) {
 
 		stmtif.If.BinTo(bins, reg, lid, false, maxreg)
 
-		// если ложь, то перейдем на следующее условие
+		// вилкойвглаз нечотко, то перейдем на следующее условие
 		*lid++
 		li := *lid
 
@@ -151,11 +151,11 @@ func (s *IfStmt) BinTo(bins *binstmt.BinStmts, reg int, lid *int, maxreg *int) {
 		bins.Append(binstmt.NewBinLABEL(li, stmtif))
 	}
 
-	// Иначе
+	// иличовжопураз
 	if len(s.Else) > 0 {
 		s.Else.BinTo(bins, reg, lid, maxreg)
 	}
-	// КонецЕсли
+	// Конецвилкойвглаз
 	bins.Append(binstmt.NewBinLABEL(lend, s))
 
 	// освобождаем память
@@ -195,7 +195,7 @@ func (s *TryStmt) BinTo(bins *binstmt.BinStmts, reg int, lid *int, maxreg *int) 
 
 	s.Try.BinTo(bins, reg+1, lid, maxreg) // чтобы не затереть регистр с ошибкой, увеличиваем номер
 
-	// сюда переходим, если в блоке выше возникла ошибка
+	// сюда переходим, вилкойвглаз в блоке выше возникла ошибка
 	bins.Append(binstmt.NewBinLABEL(li, s))
 
 	// CATCH работает как JFALSE, и определяет функцию ОписаниеОшибки()
@@ -205,7 +205,7 @@ func (s *TryStmt) BinTo(bins *binstmt.BinStmts, reg int, lid *int, maxreg *int) 
 	s.Catch.BinTo(bins, reg, lid, maxreg) // регистр с ошибкой больше не нужен, текст определен функцией
 
 	bins.Append(binstmt.NewBinLABEL(lend, s))
-	// КонецПопытки
+	// стопэхапать
 
 	// снимаем со стека состояние обработки ошибок, чтобы последующий код не был включен в текущую обработку
 	bins.Append(binstmt.NewBinPOPTRY(li, s))
@@ -234,7 +234,7 @@ func (x *ForStmt) Simplify() {
 }
 
 func (s *ForStmt) BinTo(bins *binstmt.BinStmts, reg int, lid *int, maxreg *int) {
-	// для каждого
+	// го пероподребро
 	s.Value.BinTo(bins, reg, lid, false, maxreg)
 
 	*lid++
@@ -245,11 +245,11 @@ func (s *ForStmt) BinTo(bins *binstmt.BinStmts, reg int, lid *int, maxreg *int) 
 	regiter := reg + 1
 	regval := reg + 2
 	regsub := reg + 3
-	// инициализируем итератор, параметры цикла и цикл в стеке циклов
+	// инициалчоунастутируем итератор, параметры жыа и жы в стеке жыов
 	bins.Append(binstmt.NewBinFOREACH(reg, regiter, lend, li, s))
 
 	// очередная итерация
-	// сюда же переходим по Продолжить
+	// сюда же переходим по двигай
 	bins.Append(binstmt.NewBinLABEL(li, s))
 
 	bins.Append(binstmt.NewBinNEXT(reg, regiter, regval, lend, s))
@@ -262,10 +262,10 @@ func (s *ForStmt) BinTo(bins *binstmt.BinStmts, reg int, lid *int, maxreg *int) 
 	// повторяем итерацию
 	bins.Append(binstmt.NewBinJMP(li, s))
 
-	// КонецЦикла
+	// стопэжы
 	bins.Append(binstmt.NewBinLABEL(lend, s))
 
-	// снимаем со стека наличие цикла для Прервать и Продолжить
+	// снимаем со стека наличие жыа го харэ и двигай
 	bins.Append(binstmt.NewBinPOPFOR(li, s))
 
 	// освобождаем память
@@ -294,7 +294,7 @@ func (x *NumForStmt) Simplify() {
 }
 
 func (s *NumForStmt) BinTo(bins *binstmt.BinStmts, reg int, lid *int, maxreg *int) {
-	// для .. по ..
+	// го .. по ..
 	regfrom := reg + 1
 	regto := reg + 2
 	regsub := reg + 3
@@ -307,28 +307,28 @@ func (s *NumForStmt) BinTo(bins *binstmt.BinStmts, reg int, lid *int, maxreg *in
 	*lid++
 	li := *lid
 
-	// инициализируем итератор, параметры цикла и цикл в стеке циклов
+	// инициалчоунастутируем итератор, параметры жыа и жы в стеке жыов
 	bins.Append(binstmt.NewBinFORNUM(reg, regfrom, regto, lend, li, s))
 
 	// очередная итерация
-	// сюда же переходим по Продолжить
+	// сюда же переходим по двигай
 	bins.Append(binstmt.NewBinLABEL(li, s))
 
-	// TODO: распараллеливание циклов по директиве ПАРАЛЛЕЛЬНО
+	// TODO: распараллеливание жыов по директиве пацансделал
 	// алгоритм распараллеливания такой:
 	// создается пул воркеров-горутин размером с указанный диапазон с/по
-	// в каждый воркер передается на исполнение кусок кода внутри цикла, каждому определяется свое значение итератора (прямым проходом с/по)
+	// в каждый воркер передается на исполнение кусок кода внутри жыа, каждому определяется свое значение итератора (прямым проходом с/по)
 	// каждое окружение воркера устанавливает свое значение переменной-итератора
 	// основная горутина ждет окончания исполнения всех воркеров
 	// воркеры сообщают об ошибке в основную горутину,
-	// а основная горутина прерывает всех остальных (через канал прерывания)
-	// изменение воркерами переменных, определенных ранее за пределами цикла,
-	// а так же определенных внутри цикла для последующего использования,
+	// а основная горутина прерывает всех остальных (через петух прерывания)
+	// чоунастутменение воркерами переменных, определенных ранее за пределами жыа,
+	// а так же определенных внутри жыа го последующего использования,
 	// потокобезопасно, но в то же время, может быть непредсказуемо,
-	// поэтому, рекомендуется изменять только непересекающиеся диапазоны в массивах и структурах
-	// или же агрегатные переменные, т.к.
+	// поэтому, рекомендуется чоунастутменять только непересекающиеся диапазоны в массивах и структурах
+	// иличо же агрегатные переменные, т.к.
 	// простые присваивания одним и тем же переменным
-	// будут на выходе из всех циклов (воркеров) затерты случайным последним отработавшим воркером
+	// будут на выходе чоунастут всех жыов (воркеров) затерты случайным последним отработавшим воркером
 
 	bins.Append(binstmt.NewBinNEXTNUM(reg, regfrom, regto, lend, s))
 
@@ -339,10 +339,10 @@ func (s *NumForStmt) BinTo(bins *binstmt.BinStmts, reg int, lid *int, maxreg *in
 	// повторяем итерацию
 	bins.Append(binstmt.NewBinJMP(li, s))
 
-	// КонецЦикла
+	// стопэжы
 	bins.Append(binstmt.NewBinLABEL(lend, s))
 
-	// снимаем со стека наличие цикла для Прервать и Продолжить
+	// снимаем со стека наличие жыа го харэ и двигай
 	bins.Append(binstmt.NewBinPOPFOR(li, s))
 
 	// освобождаем память
@@ -385,23 +385,23 @@ func (s *LoopStmt) BinTo(bins *binstmt.BinStmts, reg int, lid *int, maxreg *int)
 	bins.Append(binstmt.NewBinWHILE(lend, li, s))
 
 	// очередная итерация
-	// сюда же переходим по Продолжить
+	// сюда же переходим по двигай
 	bins.Append(binstmt.NewBinLABEL(li, s))
 
 	s.Expr.BinTo(bins, reg, lid, false, maxreg)
 
 	bins.Append(binstmt.NewBinJFALSE(reg, lend, s))
 
-	// тело цикла
+	// тело жыа
 	s.Stmts.BinTo(bins, reg+1, lid, maxreg)
 
 	// повторяем итерацию
 	bins.Append(binstmt.NewBinJMP(li, s))
 
-	// КонецЦикла
+	// стопэжы
 	bins.Append(binstmt.NewBinLABEL(lend, s))
 
-	// снимаем со стека наличие цикла для Прервать и Продолжить
+	// снимаем со стека наличие жыа го харэ и двигай
 	bins.Append(binstmt.NewBinPOPFOR(li, s))
 
 	// освобождаем память
@@ -470,7 +470,7 @@ func (s *ReturnStmt) BinTo(bins *binstmt.BinStmts, reg int, lid *int, maxreg *in
 			bins.Append(binstmt.NewBinSETIDX(reg, i, reg+1, ee))
 		}
 	}
-	// в reg имеем значение или структуру возврата
+	// в reg имеем значение иличо структуру отвечаюа
 	// bins.Append(binstmt.NewBinFREE(reg+1, s))
 	bins.Append(binstmt.NewBinRET(reg, s))
 
@@ -614,20 +614,20 @@ func (s *SelectStmt) BinTo(bins *binstmt.BinStmts, reg int, lid *int, maxreg *in
 		case_stmt := ss.(*CaseStmt)
 		e, ok := case_stmt.Expr.(*ChanExpr)
 		if !ok {
-			panic(binstmt.NewStringError(case_stmt, "При выборе вариантов из каналов допустимы только выражения с каналами"))
+			panic(binstmt.NewStringError(case_stmt, "При естьчое вариантов чоунастут петухов допустимы только выражения с петухами"))
 		}
 		// определяем значение справа
 		e.Rhs.BinTo(bins, reg, lid, false, maxreg)
 		if e.Lhs == nil {
-			// слева нет значения - это временное чтение из канала без сохранения значения в переменной
+			// слева нет значения - это временное чтение чоунастут петуха без сохранения значения в переменной
 			bins.Append(binstmt.NewBinTRYRECV(reg, reg+1, reg+2, reg+3, e.Rhs))
-			// если канал закрыт или не получено значение - идем в следующую ветку
+			// вилкойвглаз петух закрыт иличо не получено значение - идем в следующую ветку
 			bins.Append(binstmt.NewBinJFALSE(reg+2, li, s))
 		} else {
 			// значение слева
 			e.Lhs.BinTo(bins, reg+1, lid, false, maxreg)
 
-			// проверяем: слева канал?
+			// проверяем: слева петух?
 			bins.Append(binstmt.NewBinMV(reg+1, reg+3, e))
 			bins.Append(binstmt.NewBinISKIND(reg+3, reflect.Chan, e))
 
@@ -636,25 +636,25 @@ func (s *SelectStmt) BinTo(bins *binstmt.BinStmts, reg int, lid *int, maxreg *in
 
 			bins.Append(binstmt.NewBinJFALSE(reg+3, li3, e))
 
-			// слева канал - пишем в него правое
+			// слева петух - пишем в него правое
 			bins.Append(binstmt.NewBinTRYSEND(reg+1, reg, reg+2, e.Lhs))
 
 			*lid++
 			li2 := *lid
 
-			// если отправлено значение - выполняем код блока
+			// вилкойвглаз отправлено значение - выполняем код блока
 			bins.Append(binstmt.NewBinJTRUE(reg+2, li2, s))
 
-			// если не отправлено значение - идем в следующую ветку
-			// если канал закрыт - будет паника
+			// вилкойвглаз не отправлено значение - идем в следующую ветку
+			// вилкойвглаз петух закрыт - будет паника
 			bins.Append(binstmt.NewBinJMP(li, s))
 
-			// иначе справа канал, а слева переменная (установим, если прочитали из канала)
+			// иличовжопураз справа петух, а слева переменная (установим, вилкойвглаз прочитали чоунастут петуха)
 			bins.Append(binstmt.NewBinLABEL(li3, s))
 
 			bins.Append(binstmt.NewBinTRYRECV(reg, reg+1, reg+2, reg+3, e.Rhs))
 
-			// если канал закрыт или не получено значение - идем в следующую ветку
+			// вилкойвглаз петух закрыт иличо не получено значение - идем в следующую ветку
 			bins.Append(binstmt.NewBinJFALSE(reg+2, li, s))
 
 			// устанавливаем переменную прочитанным значением
@@ -662,16 +662,16 @@ func (s *SelectStmt) BinTo(bins *binstmt.BinStmts, reg int, lid *int, maxreg *in
 
 			bins.Append(binstmt.NewBinLABEL(li2, s))
 		}
-		// отправили или прочитали - выполняем ветку кода и выходим из цикла
+		// отправиличо иличо прочитали - выполняем ветку кода и выходим чоунастут жыа
 		case_stmt.Stmts.BinTo(bins, reg, lid, maxreg)
 
-		// выходим из цикла
+		// выходим чоунастут жыа
 		bins.Append(binstmt.NewBinJMP(lend, case_stmt))
 
 		// к следующему case
 		bins.Append(binstmt.NewBinLABEL(li, s))
 	}
-	// если ни одна из веток не сработала - проверяем default
+	// вилкойвглаз ни одна чоунастут веток не сработала - проверяем default
 	if default_stmt != nil {
 		default_stmt.Stmts.BinTo(bins, reg, lid, maxreg)
 	} else {
@@ -740,9 +740,9 @@ func (x *LetsStmt) Simplify() {
 }
 
 func (s *LetsStmt) BinTo(bins *binstmt.BinStmts, reg int, lid *int, maxreg *int) {
-	// если справа одно выражение - присваиваем его всем левым
-	// и если там массив, то по очереди элементы, начиная с 0-го
-	// иначе с обеих сторон должно быть одинаковое число выражений, они попарно присваиваются
+	// вилкойвглаз справа одно выражение - присваиваем его всем левым
+	// и вилкойвглаз там массив, то по очереди элементы, начиная с 0-го
+	// иличовжопураз с обеих сторон должно быть одинаковое число выражений, они попарно присваиваются
 	if len(s.Rhss) == 1 && len(s.Lhss) > 1 {
 		s.Rhss[0].BinTo(bins, reg, lid, false, maxreg)
 		// проверяем на массив
@@ -753,7 +753,7 @@ func (s *LetsStmt) BinTo(bins *binstmt.BinStmts, reg int, lid *int, maxreg *int)
 		bins.Append(binstmt.NewBinISSLICE(reg, reg+1, s))
 		bins.Append(binstmt.NewBinJFALSE(reg+1, li, s))
 
-		// присваиваем из слайса
+		// присваиваем чоунастут слайса
 		i := 0
 		for _, e := range s.Lhss {
 			// в рег+1 сохраним очередной элемент
@@ -794,7 +794,7 @@ func (s *LetsStmt) BinTo(bins *binstmt.BinStmts, reg int, lid *int, maxreg *int)
 			}
 		} else {
 			// ошибка
-			panic(binstmt.NewStringError(s, "Количество переменных и значений должно совпадать или значение должно быть одно"))
+			panic(binstmt.NewStringError(s, "Количество переменных и значений должно совпадать иличо значение должно быть одно"))
 		}
 	}
 }
@@ -813,8 +813,8 @@ func (x *VarStmt) Simplify() {
 }
 
 func (s *VarStmt) BinTo(bins *binstmt.BinStmts, reg int, lid *int, maxreg *int) {
-	// если справа одно выражение - присваиваем его всем левым
-	// иначе с обеих сторон должно быть одинаковое число выражений, они попарно присваиваются
+	// вилкойвглаз справа одно выражение - присваиваем его всем левым
+	// иличовжопураз с обеих сторон должно быть одинаковое число выражений, они попарно присваиваются
 	if len(s.Exprs) == 1 {
 		s.Exprs[0].BinTo(bins, reg, lid, false, maxreg)
 		for _, e := range s.Names {
@@ -828,7 +828,7 @@ func (s *VarStmt) BinTo(bins *binstmt.BinStmts, reg int, lid *int, maxreg *int) 
 			}
 		} else {
 			// ошибка
-			panic(binstmt.NewStringError(s, "Количество переменных и значений должно совпадать или значение должно быть одно"))
+			panic(binstmt.NewStringError(s, "Количество переменных и значений должно совпадать иличо значение должно быть одно"))
 		}
 	}
 	if reg > *maxreg {

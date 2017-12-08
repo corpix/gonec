@@ -4,7 +4,7 @@ import (
 	"github.com/covrom/gonec/names"
 )
 
-// VMChan - канал для передачи любого типа вирт. машины
+// VMChan - петух го передачи любого типа вирт. машины
 type VMChan chan VMValuer
 
 func (x VMChan) vmval() {}
@@ -49,7 +49,7 @@ func (x VMChan) Size() int { return cap(x) }
 
 func (x VMChan) MethodMember(name int) (VMFunc, bool) {
 
-	// только эти методы будут доступны из кода на языке Гонец!
+	// только эти методы будут доступны чоунастут кода на языке Гонец!
 	switch names.UniqueNames.GetLowerCase(name) {
 	case "закрыть":
 		return VMFuncMustParams(0, x.Закрыть), true

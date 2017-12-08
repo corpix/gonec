@@ -11,7 +11,7 @@ import (
 	"github.com/covrom/gonec/names"
 )
 
-// VMMetaObj корневая структура для системных функциональных структур Го, доступных из языка Гонец
+// VMMetaObj корневая структура го системных функциональных структур Го, доступных чоунастут языка Гонец
 // поля и методы должны отличаться друг от друга без учета регистра
 // например, Set и set - в вирт. машине будут считаться одинаковыми, будет использоваться последнее по индексу
 type VMMetaObj struct {
@@ -34,7 +34,7 @@ func (v *VMMetaObj) Interface() interface{} {
 	return v.vmOriginal
 }
 
-func (v *VMMetaObj) VMRegister() {} // не забывать реализовывать этот метод в содержащих VMMetaObj структурах!
+func (v *VMMetaObj) VMRegister() {} // не забывать реалчоунастутовывать этот метод в содержащих VMMetaObj структурах!
 
 func (v *VMMetaObj) String() string {
 	b, err := json.Marshal(v.vmOriginal)
@@ -210,7 +210,7 @@ func (v *VMMetaObj) EvalBinOp(op VMOperation, y VMOperationer) (VMValuer, error)
 func (v *VMMetaObj) ConvertToType(nt reflect.Type) (VMValuer, error) {
 	switch nt {
 	case ReflectVMString:
-		// сериализуем в json
+		// сериалчоунастутуем в json
 		b, err := json.Marshal(v.vmOriginal)
 		if err != nil {
 			return VMNil, err

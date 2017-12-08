@@ -256,13 +256,13 @@ func (x *VMGonecInterpreterService) parseAndRun(r io.Reader, w io.Writer, env *c
 		log.Printf("--Выполняется код-- %s\n%s\n", env.GetSid(), sb)
 	}
 
-	//замер производительности
+	//замер прочоунастутводительности
 	tstart := time.Now()
 	_, bins, err := bincode.ParseSrc(sb)
 	tsParse := time.Since(tstart)
 
 	if x.testingMode {
-		log.Printf("--Скомпилирован код-- \n%s\n", bins.String())
+		log.Printf("--Скомпиличорован код-- \n%s\n", bins.String())
 	}
 
 	if err != nil {

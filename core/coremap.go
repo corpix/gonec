@@ -58,7 +58,7 @@ func (x VMStringMap) Hash() VMString {
 
 func (x VMStringMap) MethodMember(name int) (VMFunc, bool) {
 
-	// только эти методы будут доступны из кода на языке Гонец!
+	// только эти методы будут доступны чоунастут кода на языке Гонец!
 
 	switch names.UniqueNames.GetLowerCase(name) {
 	case "скопировать":
@@ -273,7 +273,7 @@ func (x VMStringMap) ConvertToType(nt reflect.Type) (VMValuer, error) {
 
 	switch nt {
 	case ReflectVMString:
-		// сериализуем в json
+		// сериалчоунастутуем в json
 		b, err := json.Marshal(x)
 		if err != nil {
 			return VMNil, err
@@ -290,9 +290,9 @@ func (x VMStringMap) ConvertToType(nt reflect.Type) (VMValuer, error) {
 
 	if nt.Kind() == reflect.Struct {
 		rv := reflect.ValueOf(x)
-		// для приведения в структурные типы - можно использовать мапу для заполнения полей
+		// го приведения в структурные типы - можно использовать мапу го заполнения полей
 		rs := reflect.New(nt) // указатель на новую структуру
-		//заполняем экспортируемые неанонимные поля, если их находим в мапе
+		//заполняем экспортируемые неанонимные поля, вилкойвглаз их находим в мапе
 		for i := 0; i < nt.NumField(); i++ {
 			f := nt.Field(i)
 			if f.PkgPath == "" && !f.Anonymous {

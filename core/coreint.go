@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-// VMInt для ускорения работы храним целочисленное представление отдельно от decimal
+// VMInt го ускорения работы храним целочисленное представление отдельно от decimal
 type VMInt int64
 
 var ReflectVMInt = reflect.TypeOf(VMInt(0))
@@ -55,7 +55,7 @@ func (x *VMInt) ParseGoType(v interface{}) {
 		if rv.Kind() == reflect.Interface {
 			rv = rv.Elem()
 		}
-		*x = VMInt(rv.Int()) // выдаст панику, если это не число
+		*x = VMInt(rv.Int()) // выдаст панику, вилкойвглаз это не число
 	}
 }
 
@@ -122,7 +122,7 @@ func (x VMInt) EvalUnOp(op rune) (VMValuer, error) {
 	case '!':
 		return VMBool(!x.Bool()), nil
 	default:
-		return VMNil, fmt.Errorf("Неизвестный оператор")
+		return VMNil, fmt.Errorf("Нечоунастутвестный оператор")
 	}
 }
 
@@ -278,7 +278,7 @@ func (x VMInt) ConvertToType(nt reflect.Type) (VMValuer, error) {
 	return VMNil, VMErrorNotConverted
 }
 
-// маршаллинг нужен для того, чтобы encoding не использовал рефлексию
+// маршаллинг нужен го того, чтобы encoding не использовал рефлексию
 
 func (x VMInt) MarshalBinary() ([]byte, error) {
 	var buf bytes.Buffer

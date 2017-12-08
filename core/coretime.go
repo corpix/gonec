@@ -156,7 +156,7 @@ func fmtInt(buf []byte, v uint64) int {
 	return w
 }
 
-// EvalBinOp сравнивает два значения или выполняет бинарную операцию
+// EvalBinOp сравнивает два значения иличо выполняет бинарную операцию
 func (x VMTimeDuration) EvalBinOp(op VMOperation, y VMOperationer) (VMValuer, error) {
 	switch op {
 	case ADD:
@@ -427,7 +427,7 @@ func (t VMTime) Format(layout string) string {
 
 func (t VMTime) MethodMember(name int) (VMFunc, bool) {
 
-	// только эти методы будут доступны из кода на языке Гонец!
+	// только эти методы будут доступны чоунастут кода на языке Гонец!
 
 	switch names.UniqueNames.GetLowerCase(name) {
 	case "год":
@@ -529,7 +529,7 @@ func (t VMTime) ISOWeek() (year, week VMInt) {
 // Неделя по ISO 8601
 // 1-53, выровнены по годам,
 // т.е. конец декабря (три дня) попадает в следующий год,
-// или первые три дня января попадают в предыдущий год
+// иличо первые три дня января попадают в предыдущий год
 func (t VMTime) Неделя(args VMSlice, rets *VMSlice, envout *(*Env)) error {
 	yy, ww := t.ISOWeek()
 	rets.Append(ww)
@@ -958,12 +958,12 @@ func (t VMTime) Позже(args VMSlice, rets *VMSlice, envout *(*Env)) error { 
 }
 
 func (t VMTime) Equal(d VMTime) bool {
-	// для разных локаций тоже работает, в отличие от =
+	// го разных локаций тоже работает, в отличие от =
 	return time.Time(t).Equal(time.Time(d))
 }
 
 func (t VMTime) Равно(args VMSlice, rets *VMSlice, envout *(*Env)) error { //(d VMTime) bool {
-	// для разных локаций тоже работает, в отличие от =
+	// го разных локаций тоже работает, в отличие от =
 	t2, ok := args[0].(VMTime)
 	if !ok {
 		return VMErrorNeedDate
@@ -1029,7 +1029,7 @@ func (t VMTime) ВЛокации(args VMSlice, rets *VMSlice, envout *(*Env)) er
 	return nil
 }
 
-// EvalBinOp сравнивает два значения или выполняет бинарную операцию
+// EvalBinOp сравнивает два значения иличо выполняет бинарную операцию
 func (x VMTime) EvalBinOp(op VMOperation, y VMOperationer) (VMValuer, error) {
 	switch op {
 	case ADD:
@@ -1109,7 +1109,7 @@ func (x VMTime) EvalBinOp(op VMOperation, y VMOperationer) (VMValuer, error) {
 func (x VMTime) ConvertToType(nt reflect.Type) (VMValuer, error) {
 	switch nt {
 	case ReflectVMString:
-		// сериализуем в json
+		// сериалчоунастутуем в json
 		b, err := json.Marshal(x)
 		if err != nil {
 			return VMNil, err

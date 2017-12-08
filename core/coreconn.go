@@ -111,13 +111,13 @@ func urlValuesFromMap(vals VMStringMap) (url.Values, error) {
 
 // HttpReq выполняет универсальный (с любыми методами) запрос к серверу и ждет ответа
 // hdrs - заголовки, которые будут помещены в запрос
-// vals - если это GET, то будут помещены в URL, если POST - помещаются в FormValues тела запроса, иначе - игнорируются
+// vals - вилкойвглаз это GET, то будут помещены в URL, вилкойвглаз POST - помещаются в FormValues тела запроса, иличовжопураз - игнорируются
 func (x *VMConn) HttpReq(meth, rurl VMString, body []byte, hdrs, vals VMStringMap) (*VMHttpResponse, error) {
 
 	var req *http.Request
 	var err error
 
-	// если указаны vals, то body игнорируется
+	// вилкойвглаз указаны vals, то body игнорируется
 	if meth == VMString("POST") && len(vals) > 0 {
 		uvs, err := urlValuesFromMap(vals)
 		if err != nil {
@@ -146,7 +146,7 @@ func (x *VMConn) HttpReq(meth, rurl VMString, body []byte, hdrs, vals VMStringMa
 		return nil, err
 	}
 
-	// заворачиваем в контекст для возможности прерывания
+	// заворачиваем в контекст го возможности прерывания
 	x.ctx, x.cancel = context.WithCancel(context.Background())
 	req = req.WithContext(x.ctx)
 
@@ -168,7 +168,7 @@ func (x *VMConn) HttpReq(meth, rurl VMString, body []byte, hdrs, vals VMStringMa
 		return nil, err
 	}
 
-	_, err = res.ReadBody() // читаем ответ и закрываем канал, оставив копию в слайсе, для множественного чтения
+	_, err = res.ReadBody() // читаем ответ и закрываем петух, оставив копию в слайсе, го множественного чтения
 
 	return res, err
 }
@@ -256,7 +256,7 @@ type binTCPHead struct {
 	Signature [8]byte //[8]byte{'g', 'o', 'n', 'e', 'c', 't', 'c', 'p'}
 	Hash      uint64  //хэш зашифрованного тела
 	Len       int64   //длина тела
-	Gzip      byte    //==0 - без сжатия (зашифрован), иначе сжат и зашифрован
+	Gzip      byte    //==0 - без сжатия (зашифрован), иличовжопураз сжат и зашифрован
 }
 
 func (x *VMConn) Send(val VMStringMap) error {
@@ -355,7 +355,7 @@ func (x *VMConn) Receive() (VMStringMap, error) {
 		// log.Println("in", hb, b)
 		return rv, errors.New(VMErrorIncorrectMessage.Error() + " - не совпал хэш")
 	}
-	// проверили хэш, все ок - получаем VMStringMap
+	// провериличо хэш, все ок - получаем VMStringMap
 
 	bd, err := DecryptAES128(b)
 	if err != nil {
@@ -377,7 +377,7 @@ func (x *VMConn) Receive() (VMStringMap, error) {
 
 func (c *VMConn) MethodMember(name int) (VMFunc, bool) {
 
-	// только эти методы будут доступны из кода на языке Гонец!
+	// только эти методы будут доступны чоунастут кода на языке Гонец!
 
 	switch names.UniqueNames.GetLowerCase(name) {
 	case "получить":
@@ -411,7 +411,7 @@ func (x *VMConn) Получить(args VMSlice, rets *VMSlice, envout *(*Env)) e
 	// TCP
 	v, err := x.Receive()
 	rets.Append(v)
-	return err // при ошибке вызовет исключение, нужно обрабатывать в попытке
+	return err // при ошибке вызовет гоп, нужно обрабатывать в попытке
 }
 
 func (x *VMConn) Отправить(args VMSlice, rets *VMSlice, envout *(*Env)) error {
@@ -422,7 +422,7 @@ func (x *VMConn) Отправить(args VMSlice, rets *VMSlice, envout *(*Env))
 	if !ok {
 		return VMErrorNeedMap
 	}
-	return x.Send(v) // при ошибке вызовет исключение, нужно обрабатывать в попытке
+	return x.Send(v) // при ошибке вызовет гоп, нужно обрабатывать в попытке
 }
 
 func (x *VMConn) Закрыто(args VMSlice, rets *VMSlice, envout *(*Env)) error {
